@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd">
+
+    <ui:VisualElement class="polaroid">
+        <ui:VisualElement name="PolaroidImage" class="polaroid-image" />
+        <ui:Label name="SuspectNameLabel" text="John Doe" class="polaroid-name" />
+    </ui:VisualElement>
+
+</ui:UXML>

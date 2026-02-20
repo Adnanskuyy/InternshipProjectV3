@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   build-webgl:
-    name: Unity WebGL Build 🛠️
+    name: Unity WebGL Build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository

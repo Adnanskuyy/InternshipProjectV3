@@ -1,0 +1,132 @@
+.main-container {
+    flex-grow: 1;
+    background-color: rgb(40, 40, 40);
+    align-items: center;
+    justify-content: center;
+}
+
+.polaroid-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-top: 50px;
+}
+
+.polaroid {
+    width: 250px;
+    height: 300px;
+    background-color: white;
+    margin: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition-duration: 0.2s;
+    transition-property: scale, rotate;
+}
+
+.polaroid:hover {
+    scale: 1.05;
+    rotate: -2deg;
+    cursor: link;
+}
+
+.polaroid-image {
+    flex-grow: 1;
+    background-color: rgb(200, 200, 200);
+    margin-bottom: 10px;
+}
+
+.polaroid-name {
+    -unity-text-align: middle-center;
+    font-size: 20px;
+    color: black;
+    -unity-font-style: bold;
+}
+
+/* Detail Panel Styling */
+.detail-panel {
+    position: absolute;
+    top: 50px;
+    bottom: 50px;
+    left: 100px;
+    right: 100px;
+    background-color: rgb(240, 240, 240);
+    border-radius: 10px;
+    padding: 30px;
+    display: none; /* Hidden by default */
+    flex-direction: row;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.detail-left {
+    width: 40%;
+    align-items: center;
+    border-right-width: 2px;
+    border-right-color: rgb(180, 180, 180);
+    padding-right: 20px;
+}
+
+.detail-right {
+    width: 60%;
+    padding-left: 20px;
+    justify-content: space-between;
+}
+
+.detail-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(200, 50, 50);
+    color: white;
+    -unity-font-style: bold;
+    border-radius: 20px;
+}
+
+.detail-title {
+    font-size: 32px;
+    -unity-font-style: bold;
+    margin-bottom: 20px;
+    color: rgb(30, 30, 30);
+}
+
+.detail-section-title {
+    font-size: 20px;
+    -unity-font-style: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: rgb(50, 50, 50);
+}
+
+.detail-text {
+    font-size: 16px;
+    white-space: normal;
+    color: rgb(40, 40, 40);
+}
+
+.action-bar {
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top-width: 2px;
+    border-top-color: rgb(180, 180, 180);
+}
+
+.action-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    -unity-font-style: bold;
+    border-radius: 5px;
+}
+
+.btn-urine {
+    background-color: rgb(200, 150, 50);
+}
+
+.btn-positive { background-color: rgb(200, 50, 50); color: white; }
+.btn-negative { background-color: rgb(50, 200, 50); color: white; }
+.btn-unsure { background-color: rgb(150, 150, 150); }
