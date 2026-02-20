@@ -19,6 +19,7 @@ namespace InvestigationGame.UI
         private Button positiveBtn;
         private Button negativeBtn;
         private Button unsureBtn;
+        private VisualElement urineTestStamp;
 
         private SuspectData currentSuspect;
         private System.Action<SuspectData, Verdict> onVerdictSubmitted;
@@ -40,6 +41,7 @@ namespace InvestigationGame.UI
             positiveBtn = panelRoot.Q<Button>("VerdictPositiveBtn");
             negativeBtn = panelRoot.Q<Button>("VerdictNegativeBtn");
             unsureBtn = panelRoot.Q<Button>("VerdictUnsureBtn");
+            urineTestStamp = panelRoot.Q<VisualElement>("UrineTestStamp");
 
             // Register events
             closeBtn.clicked += Hide;
@@ -77,14 +79,25 @@ namespace InvestigationGame.UI
         {
             panelRoot.style.display = DisplayStyle.None; // Hide
             currentSuspect = null;
+            if (urineTestStamp != null)
+            {
+                urineTestStamp.style.display = DisplayStyle.None;
+            }
         }
 
         private void OnUrineTestClicked()
         {
             if (InvestigationManager.Instance != null && InvestigationManager.Instance.UseUrineTest())
             {
-                // Uncover the truth (placeholder log, can update UI with truth later)
-                Debug.Log($"Urine test used on {currentSuspect.SuspectName}! Truth: {(currentSuspect.IsActuallyUsing ? "Positive" : "Negative")}");
+                // Uncover the truth
+                Debug.Log($"Urine test used on {currentSuspect.SuspectName}! Truth: {(currentSuspect.IsUser ? "Positive" : "Negative")}");
+                
+                if (urineTestStamp != null)
+                {
+                    urineTestStamp.style.display = DisplayStyle.Flex;
+                    urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.red) : new StyleColor(Color.green);
+                }
+
                 UpdateUrineTestButtonState();
             }
         }

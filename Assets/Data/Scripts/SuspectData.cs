@@ -26,6 +26,6 @@ namespace InvestigationGame.Data
         public string Rumors;
 
         [Header("Truth")]
-        public bool IsActuallyUsing;
+        public bool IsUser;
     }
 }

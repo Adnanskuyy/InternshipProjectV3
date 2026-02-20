@@ -50,9 +50,7 @@ public class SceneSetupUtility
         var suspects = GeneratePlaceholderSuspects();
         
         // 5. Connect UI Controller
-        uiController.UIDocument = uiDocument;
-        uiController.Suspects = suspects;
-        uiController.SuspectTemplate = suspectTemplateUXML;
+        uiController.InitializeUI(suspects);
         
         // 6. Save Scene
         EditorSceneManager.SaveScene(SceneManager.GetActiveScene(), "Assets/Scenes/InvestigationScene.unity");
@@ -85,7 +83,7 @@ public class SceneSetupUtility
             SuspectData newData = ScriptableObject.CreateInstance<SuspectData>();
             newData.SuspectName = names[i];
             newData.Rumors = $"I heard {names[i]} has been acting very strange lately...";
-            newData.IsActuallyUsing = (i == 1); // Bob is the culprit
+            newData.IsUser = (i == 1); // Bob is the culprit
             
             newData.PhysicalCharacteristics = new EvidenceData { Description = "Dilated pupils, jittery movements." };
             newData.Behavior = new EvidenceData { Description = "Arrived late to work, avoiding eye contact." };

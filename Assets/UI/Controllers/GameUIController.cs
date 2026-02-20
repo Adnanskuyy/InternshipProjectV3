@@ -10,16 +10,16 @@ namespace InvestigationGame.UI
     {
         [SerializeField] private UIDocument uiDocument;
         [SerializeField] private VisualTreeAsset suspectTemplate;
-        [SerializeField] private List<SuspectData> suspects;
 
+        // Exposed for SceneSetupUtility
         public UIDocument UIDocument { get => uiDocument; set => uiDocument = value; }
         public VisualTreeAsset SuspectTemplate { get => suspectTemplate; set => suspectTemplate = value; }
-        public List<SuspectData> Suspects { get => suspects; set => suspects = value; }
 
         private DetailPanelController detailPanelController;
         private Dictionary<SuspectData, Verdict> verdicts = new Dictionary<SuspectData, Verdict>();
+        private VisualElement root;
 
-        private void Start()
+        private void Awake()
         {
             if (uiDocument == null)
             {
@@ -27,29 +27,41 @@ namespace InvestigationGame.UI
                 return;
             }
 
-            var root = uiDocument.rootVisualElement;
+            root = uiDocument.rootVisualElement;
 
             // Initialize Detail Panel
             var detailPanelElement = root.Q<VisualElement>("DetailPanel");
             detailPanelController = new DetailPanelController(detailPanelElement, OnVerdictSubmitted);
-
-            // Populate Suspects Grid
-            var polaroidGrid = root.Q<VisualElement>("PolaroidGrid");
-            if (polaroidGrid != null && suspectTemplate != null)
-            {
-                foreach (var suspect in suspects)
-                {
-                    var suspectUI = new SuspectUIElement(suspectTemplate, suspect, OnSuspectClicked);
-                    polaroidGrid.Add(suspectUI.Root);
-                    verdicts[suspect] = Verdict.Unsure; // Default verdict
-                }
-            }
 
             // Setup Final Submit Button
             var finalSubmitBtn = root.Q<Button>("FinalSubmitBtn");
             if (finalSubmitBtn != null)
             {
                 finalSubmitBtn.clicked += OnFinalSubmit;
+            }
+        }
+
+        public void InitializeUI(List<SuspectData> selectedSuspects)
+        {
+            if (root == null)
+            {
+                if (uiDocument != null) root = uiDocument.rootVisualElement;
+                if (root == null) return;
+            }
+
+            // Populate Suspects Grid
+            var polaroidGrid = root.Q<VisualElement>("PolaroidGrid");
+            if (polaroidGrid != null && suspectTemplate != null)
+            {
+                polaroidGrid.Clear(); // Clear any existing
+                verdicts.Clear();
+
+                foreach (var suspect in selectedSuspects)
+                {
+                    var suspectUI = new SuspectUIElement(suspectTemplate, suspect, OnSuspectClicked);
+                    polaroidGrid.Add(suspectUI.Root);
+                    verdicts[suspect] = Verdict.Unsure; // Default verdict
+                }
             }
         }
 
