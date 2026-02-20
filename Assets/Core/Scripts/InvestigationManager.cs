@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using InvestigationGame.Data;
@@ -5,11 +6,26 @@ using InvestigationGame.UI;
 
 namespace InvestigationGame.Core
 {
+    public class SuspectResult
+    {
+        public SuspectData Suspect;
+        public Verdict PlayerVerdict;
+        public bool IsCorrect;
+    }
+
+    public class InvestigationResult
+    {
+        public bool IsSuccess;
+        public List<SuspectResult> Details = new List<SuspectResult>();
+    }
+
     public class InvestigationManager : MonoBehaviour
     {
         public static InvestigationManager Instance { get; private set; }
 
         public bool HasUsedUrineTest { get; private set; }
+
+        public event Action<InvestigationResult> OnInvestigationComplete;
 
         [SerializeField] private List<SuspectData> masterSuspectPool;
         [SerializeField] private GameUIController uiController;
@@ -59,6 +75,49 @@ namespace InvestigationGame.Core
         public void SubmitVerdict(SuspectData suspect, Verdict verdict)
         {
             Debug.Log($"Verdict for {suspect.SuspectName} submitted: {verdict}");
+        }
+
+        public void CompleteInvestigation(Dictionary<SuspectData, Verdict> verdicts)
+        {
+            var result = new InvestigationResult();
+            int positiveCount = 0;
+            bool foundRealUser = false;
+
+            foreach (var kvp in verdicts)
+            {
+                var suspect = kvp.Key;
+                var verdict = kvp.Value;
+
+                bool isCorrect = false;
+                if (verdict == Verdict.Positive)
+                {
+                    positiveCount++;
+                    if (suspect.IsUser)
+                    {
+                        foundRealUser = true;
+                        isCorrect = true;
+                    }
+                }
+                else if (verdict == Verdict.Negative)
+                {
+                    if (!suspect.IsUser)
+                    {
+                        isCorrect = true;
+                    }
+                }
+
+                result.Details.Add(new SuspectResult
+                {
+                    Suspect = suspect,
+                    PlayerVerdict = verdict,
+                    IsCorrect = isCorrect
+                });
+            }
+
+            // Success if exactly one positive and it's the real user
+            result.IsSuccess = (positiveCount == 1 && foundRealUser);
+
+            OnInvestigationComplete?.Invoke(result);
         }
     }
 

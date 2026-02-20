@@ -21,4 +21,4 @@ MonoBehaviour:
     Description: Arrived late to work, avoiding eye contact.
     Image: {fileID: 0}
   Rumors: I heard Alice has been acting very strange lately...
-  IsActuallyUsing: 0
+  IsUser: 1

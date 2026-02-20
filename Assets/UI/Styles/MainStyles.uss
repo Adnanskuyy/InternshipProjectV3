@@ -130,3 +130,71 @@
 .btn-positive { background-color: rgb(200, 50, 50); color: white; }
 .btn-negative { background-color: rgb(50, 200, 50); color: white; }
 .btn-unsure { background-color: rgb(150, 150, 150); }
+
+/* Verdict Overlay Styling */
+.verdict-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: none; /* hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+
+.verdict-panel {
+    background-color: rgb(240, 240, 240);
+    border-radius: 10px;
+    padding: 30px;
+    width: 60%;
+    height: 70%;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.verdict-title {
+    font-size: 36px;
+    -unity-font-style: bold;
+    color: rgb(30, 30, 30);
+    margin-bottom: 10px;
+}
+
+.verdict-result {
+    font-size: 24px;
+    -unity-font-style: bold;
+    margin-bottom: 20px;
+}
+
+.result-success { color: rgb(50, 150, 50); }
+.result-failure { color: rgb(200, 50, 50); }
+
+.verdict-details-list {
+    flex-grow: 1;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: rgb(220, 220, 220);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.suspect-result-item {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.suspect-result-name {
+    font-size: 18px;
+    -unity-font-style: bold;
+    color: black;
+}
+
+.suspect-result-status {
+    font-size: 16px;
+    -unity-font-style: bold;
+}
