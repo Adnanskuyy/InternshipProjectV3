@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Suspect_Charlie
   m_EditorClassIdentifier: Assembly-CSharp::InvestigationGame.Data.SuspectData
   SuspectName: Charlie
-  PolaroidSprite: {fileID: 0}
+  PolaroidSprite: {fileID: -5304994338159628843, guid: fa181e765732e1f44b54e00735c9f00f, type: 3}
   PhysicalCharacteristics:
     Description: Dilated pupils, jittery movements.
     Image: {fileID: 0}
@@ -21,4 +21,4 @@ MonoBehaviour:
     Description: Arrived late to work, avoiding eye contact.
     Image: {fileID: 0}
   Rumors: I heard Charlie has been acting very strange lately...
-  IsActuallyUsing: 0
+  IsUser: 0

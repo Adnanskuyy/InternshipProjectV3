@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Suspect_Diana
   m_EditorClassIdentifier: Assembly-CSharp::InvestigationGame.Data.SuspectData
   SuspectName: Diana
-  PolaroidSprite: {fileID: 0}
+  PolaroidSprite: {fileID: -7068292343059816063, guid: 64022512e6f99de4cb7edca3a8be5afd, type: 3}
   PhysicalCharacteristics:
     Description: Dilated pupils, jittery movements.
     Image: {fileID: 0}
@@ -21,4 +21,4 @@ MonoBehaviour:
     Description: Arrived late to work, avoiding eye contact.
     Image: {fileID: 0}
   Rumors: I heard Diana has been acting very strange lately...
-  IsActuallyUsing: 0
+  IsUser: 0

@@ -96,6 +96,7 @@ namespace InvestigationGame.UI
                 {
                     urineTestStamp.style.display = DisplayStyle.Flex;
                     urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.red) : new StyleColor(Color.green);
+                    // Todo looks for urineTestStamp.style.text to alter the text either positive or negative
                 }
 
                 UpdateUrineTestButtonState();
