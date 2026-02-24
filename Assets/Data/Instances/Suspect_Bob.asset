@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Suspect_Bob
   m_EditorClassIdentifier: Assembly-CSharp::InvestigationGame.Data.SuspectData
   SuspectName: Bob
-  PolaroidSprite: {fileID: 0}
+  PolaroidSprite: {fileID: -6773448071781818622, guid: 1e105ee1f8fe14343905e3fd61fa5bb2, type: 3}
   PhysicalCharacteristics:
     Description: Dilated pupils, jittery movements.
     Image: {fileID: 0}
@@ -21,4 +21,4 @@ MonoBehaviour:
     Description: Arrived late to work, avoiding eye contact.
     Image: {fileID: 0}
   Rumors: I heard Bob has been acting very strange lately...
-  IsActuallyUsing: 1
+  IsUser: 0

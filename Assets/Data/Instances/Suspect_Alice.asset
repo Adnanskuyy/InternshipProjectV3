@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Suspect_Alice
   m_EditorClassIdentifier: Assembly-CSharp::InvestigationGame.Data.SuspectData
   SuspectName: Alice
-  PolaroidSprite: {fileID: 0}
+  PolaroidSprite: {fileID: 5329720113751402079, guid: 5e6ba35648e33ed458b02472d340274a, type: 3}
   PhysicalCharacteristics:
     Description: Dilated pupils, jittery movements.
     Image: {fileID: 0}
@@ -21,4 +21,4 @@ MonoBehaviour:
     Description: Arrived late to work, avoiding eye contact.
     Image: {fileID: 0}
   Rumors: I heard Alice has been acting very strange lately...
-  IsActuallyUsing: 0
+  IsUser: 1

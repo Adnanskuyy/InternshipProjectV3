@@ -1,12 +1,22 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using InvestigationGame.Data;
+using InvestigationGame.UI;
 
 namespace InvestigationGame.Core
 {
-    public enum Verdict
+    public class SuspectResult
     {
-        Unsure,
-        Positive,
-        Negative
+        public SuspectData Suspect;
+        public Verdict PlayerVerdict;
+        public bool IsCorrect;
+    }
+
+    public class InvestigationResult
+    {
+        public bool IsSuccess;
+        public List<SuspectResult> Details = new List<SuspectResult>();
     }
 
     public class InvestigationManager : MonoBehaviour
@@ -15,6 +25,11 @@ namespace InvestigationGame.Core
 
         public bool HasUsedUrineTest { get; private set; }
 
+        public event Action<InvestigationResult> OnInvestigationComplete;
+
+        [SerializeField] private List<SuspectData> masterSuspectPool;
+        [SerializeField] private GameUIController uiController;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -22,33 +37,94 @@ namespace InvestigationGame.Core
                 Destroy(gameObject);
                 return;
             }
-            
             Instance = this;
+        }
+
+        private void Start()
+        {
+            if (masterSuspectPool == null || masterSuspectPool.Count == 0)
+            {
+                Debug.LogError("Master suspect pool is empty!");
+                return;
+            }
+
+            var selectedSuspects = SuspectSelector.PickSuspects(masterSuspectPool);
+
+            if (uiController != null)
+            {
+                uiController.InitializeUI(selectedSuspects);
+            }
+            else
+            {
+                Debug.LogError("GameUIController is not assigned in InvestigationManager!");
+            }
         }
 
         public bool UseUrineTest()
         {
             if (HasUsedUrineTest)
             {
-                Debug.LogWarning("Urine test has already been used this session.");
+                Debug.LogWarning("Urine test already used!");
                 return false;
             }
-
+            
             HasUsedUrineTest = true;
-            Debug.Log("Urine test used.");
             return true;
         }
 
-        public void SubmitVerdict(Data.SuspectData suspect, Verdict verdict)
+        public void SubmitVerdict(SuspectData suspect, Verdict verdict)
         {
-            if (suspect == null)
-            {
-                Debug.LogError("Tried to submit verdict for null suspect!");
-                return;
-            }
-
-            // Here we would typically store this verdict for the end-game summary
             Debug.Log($"Verdict for {suspect.SuspectName} submitted: {verdict}");
         }
+
+        public void CompleteInvestigation(Dictionary<SuspectData, Verdict> verdicts)
+        {
+            var result = new InvestigationResult();
+            int positiveCount = 0;
+            bool foundRealUser = false;
+
+            foreach (var kvp in verdicts)
+            {
+                var suspect = kvp.Key;
+                var verdict = kvp.Value;
+
+                bool isCorrect = false;
+                if (verdict == Verdict.Positive)
+                {
+                    positiveCount++;
+                    if (suspect.IsUser)
+                    {
+                        foundRealUser = true;
+                        isCorrect = true;
+                    }
+                }
+                else if (verdict == Verdict.Negative)
+                {
+                    if (!suspect.IsUser)
+                    {
+                        isCorrect = true;
+                    }
+                }
+
+                result.Details.Add(new SuspectResult
+                {
+                    Suspect = suspect,
+                    PlayerVerdict = verdict,
+                    IsCorrect = isCorrect
+                });
+            }
+
+            // Success if exactly one positive and it's the real user
+            result.IsSuccess = (positiveCount == 1 && foundRealUser);
+
+            OnInvestigationComplete?.Invoke(result);
+        }
+    }
+
+    public enum Verdict
+    {
+        Unsure,
+        Positive,
+        Negative
     }
 }

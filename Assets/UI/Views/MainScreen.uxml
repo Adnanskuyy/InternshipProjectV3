@@ -7,24 +7,33 @@
     <ui:Style src="../Styles/MainStyles.uss" />
 
     <ui:VisualElement class="main-container">
-        <!-- Title -->
-        <ui:Label text="THE INVESTIGATION" style="font-size: 40px; color: white; -unity-font-style: bold; margin-top: 30px;" />
+        <ui:ScrollView style="width: 100%; height: 100%;">
+            <ui:VisualElement style="align-items: center; padding-bottom: 50px; width: 100%;">
+                <!-- Title -->
+                <ui:Label text="THE INVESTIGATION" style="font-size: 40px; color: white; -unity-font-style: bold; margin-top: 30px;" />
 
-        <!-- Polaroids Grid -->
-        <ui:VisualElement name="PolaroidGrid" class="polaroid-container">
-            <!-- Polaroids will be dynamically instantiated here -->
-        </ui:VisualElement>
-        
-        <!-- Submit Button -->
-        <ui:Button name="FinalSubmitBtn" text="SUBMIT FINAL VERDICTS" class="action-btn" style="margin-top: 40px; background-color: rgb(50, 100, 200); color: white;" />
+                <!-- Polaroids Grid -->
+                <ui:VisualElement name="PolaroidGrid" class="polaroid-container">
+                    <!-- Polaroids will be dynamically instantiated here -->
+                </ui:VisualElement>
+                
+                <!-- Submit Button -->
+                <ui:Button name="FinalSubmitBtn" text="SUBMIT FINAL VERDICTS" class="action-btn" style="margin-top: 40px; margin-bottom: 40px; background-color: rgb(50, 100, 200); color: white;" />
+            </ui:VisualElement>
+        </ui:ScrollView>
 
         <!-- Detail Panel Overlay -->
         <ui:VisualElement name="DetailPanel" class="detail-panel">
             <ui:Button name="CloseDetailBtn" text="X" class="detail-close-btn" />
             
             <ui:VisualElement class="detail-left">
-                <ui:VisualElement name="DetailImage" style="width: 100%; height: 300px; background-color: gray; margin-bottom: 20px;" />
+                <!-- Changed hardcoded height to flex-grow and scale-to-fit to maximize image size -->
+                <ui:VisualElement name="DetailImage" style="width: 100%; flex-grow: 1; -unity-background-scale-mode: scale-to-fit; background-color: gray; margin-bottom: 20px;" />
                 <ui:Label name="DetailNameLabel" text="Name" class="detail-title" />
+                <!-- Urine Test Stamp -->
+                <ui:VisualElement name="UrineTestStamp" style="display: none; width: 100%; height: 50px; background-color: red; justify-content: center; align-items: center; margin-top: 10px;">
+                    <ui:Label name="UrineTestStampLabel" text="TEST RESULT: POSITIVE" style="color: white; -unity-font-style: bold; font-size: 20px;" />
+                </ui:VisualElement>
             </ui:VisualElement>
 
             <ui:VisualElement class="detail-right">
@@ -40,11 +49,26 @@
                 </ui:ScrollView>
 
                 <ui:VisualElement class="action-bar">
+                    <ui:VisualElement name="UrineTestStamp" class="stamp-image" style="display: none; width: 200px; height: 100px; position: absolute; top: 20px; right: 20px; background-color: rgba(255, 0, 0, 0.5);" />
                     <ui:Button name="UrineTestBtn" text="Use Urine Test (1x)" class="action-btn btn-urine" />
                     <ui:Button name="VerdictPositiveBtn" text="Verdict: Positive" class="action-btn btn-positive" />
                     <ui:Button name="VerdictNegativeBtn" text="Verdict: Negative" class="action-btn btn-negative" />
                     <ui:Button name="VerdictUnsureBtn" text="Verdict: Unsure" class="action-btn btn-unsure" />
                 </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Verdict Overlay -->
+        <ui:VisualElement name="VerdictOverlay" class="verdict-overlay">
+            <ui:VisualElement class="verdict-panel">
+                <ui:Label name="VerdictTitle" text="INVESTIGATION COMPLETE" class="verdict-title" />
+                <ui:Label name="VerdictResult" text="RESULT" class="verdict-result" />
+                
+                <ui:ScrollView name="VerdictDetailsList" class="verdict-details-list">
+                    <!-- Suspect Result Items will be dynamically instantiated here -->
+                </ui:ScrollView>
+                
+                <ui:Button name="PlayAgainBtn" text="PLAY AGAIN" class="action-btn" style="background-color: rgb(50, 100, 200); color: white;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

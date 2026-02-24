@@ -151,11 +151,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InvestigationGame.UI.GameUIController
   uiDocument: {fileID: 1126438810}
   suspectTemplate: {fileID: 9197481963319205126, guid: e7506140e69b29d4899bf45abaf8c86b, type: 3}
-  suspects:
-  - {fileID: 11400000, guid: 94e31a4e77850b1449738c29d395b2dd, type: 2}
-  - {fileID: 11400000, guid: 293ba4fed3c3f324e81c1eea9bcef168, type: 2}
-  - {fileID: 11400000, guid: 741ffd9e1eccf7c4ba8dc094d4735518, type: 2}
-  - {fileID: 11400000, guid: be0289f7d6d53a04c8332c08bcfb753a, type: 2}
 --- !u!114 &748145927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +163,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 539bc1f89d642cd4da96bd719549a90e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InvestigationGame.Core.InvestigationManager
+  masterSuspectPool:
+  - {fileID: 11400000, guid: 94e31a4e77850b1449738c29d395b2dd, type: 2}
+  - {fileID: 11400000, guid: 293ba4fed3c3f324e81c1eea9bcef168, type: 2}
+  - {fileID: 11400000, guid: 741ffd9e1eccf7c4ba8dc094d4735518, type: 2}
+  - {fileID: 11400000, guid: be0289f7d6d53a04c8332c08bcfb753a, type: 2}
+  uiController: {fileID: 748145926}
 --- !u!4 &748145928
 Transform:
   m_ObjectHideFlags: 0
@@ -379,6 +380,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1350603307}
   - {fileID: 748145928}
   - {fileID: 1126438811}
-  - {fileID: 1350603307}
