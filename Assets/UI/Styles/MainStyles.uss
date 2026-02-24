@@ -29,7 +29,7 @@
     background-color: white;
     padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+    /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5); */
     transition-duration: 0.2s;
     transition-property: scale, rotate;
 }
@@ -65,7 +65,7 @@
     padding: 40px;
     display: none; /* Hidden by default */
     flex-direction: row;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.8); */
 }
 
 .detail-left {
@@ -163,7 +163,7 @@
     width: 60%;
     height: 70%;
     align-items: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.8); */
 }
 
 .verdict-title {
