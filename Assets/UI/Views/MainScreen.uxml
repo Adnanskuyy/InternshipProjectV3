@@ -19,6 +19,9 @@
                 
                 <!-- Submit Button -->
                 <ui:Button name="FinalSubmitBtn" text="SUBMIT FINAL VERDICTS" class="action-btn" style="margin-top: 40px; margin-bottom: 40px; background-color: rgb(50, 100, 200); color: white;" />
+                
+                <!-- Help Button -->
+                <ui:Button name="HelpBtn" text="?" class="help-btn" />
             </ui:VisualElement>
         </ui:ScrollView>
 
@@ -69,6 +72,18 @@
                 </ui:ScrollView>
                 
                 <ui:Button name="PlayAgainBtn" text="PLAY AGAIN" class="action-btn" style="background-color: rgb(50, 100, 200); color: white;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Tutorial Overlay -->
+        <ui:VisualElement name="TutorialOverlay" class="tutorial-overlay" style="display: none;">
+            <!-- This highlight box will be repositioned dynamically -->
+            <ui:VisualElement name="TutorialHighlightBox" class="tutorial-highlight-box" />
+
+            <ui:VisualElement name="TutorialDialogPanel" class="tutorial-dialog-panel">
+                <ui:Label name="TutorialTitle" text="TUTORIAL" class="tutorial-title" />
+                <ui:Label name="TutorialText" text="Instruction goes here." class="tutorial-text" />
+                <ui:Button name="TutorialNextBtn" text="NEXT" class="action-btn tutorial-next-btn" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

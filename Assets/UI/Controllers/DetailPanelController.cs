@@ -72,6 +72,22 @@ namespace InvestigationGame.UI
             // Update UI State for urine test
             UpdateUrineTestButtonState();
 
+            // Check if this specific suspect has already been tested
+            if (currentSuspect.hasBeenTested && urineTestStamp != null)
+            {
+                urineTestStamp.style.display = DisplayStyle.Flex;
+                urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.red) : new StyleColor(Color.green);
+                var stampLabel = urineTestStamp.Q<Label>("UrineTestStampLabel");
+                if (stampLabel != null)
+                {
+                    stampLabel.text = currentSuspect.IsUser ? "TEST RESULT: POSITIVE" : "TEST RESULT: NEGATIVE";
+                }
+            }
+            else if (urineTestStamp != null)
+            {
+                urineTestStamp.style.display = DisplayStyle.None;
+            }
+
             panelRoot.style.display = DisplayStyle.Flex; // Show
         }
 
@@ -92,11 +108,18 @@ namespace InvestigationGame.UI
                 // Uncover the truth
                 Debug.Log($"Urine test used on {currentSuspect.SuspectName}! Truth: {(currentSuspect.IsUser ? "Positive" : "Negative")}");
                 
+                currentSuspect.hasBeenTested = true;
+
                 if (urineTestStamp != null)
                 {
                     urineTestStamp.style.display = DisplayStyle.Flex;
                     urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.red) : new StyleColor(Color.green);
-                    // Todo looks for urineTestStamp.style.text to alter the text either positive or negative
+                    
+                    var stampLabel = urineTestStamp.Q<Label>("UrineTestStampLabel");
+                    if (stampLabel != null)
+                    {
+                        stampLabel.text = currentSuspect.IsUser ? "TEST RESULT: POSITIVE" : "TEST RESULT: NEGATIVE";
+                    }
                 }
 
                 UpdateUrineTestButtonState();
@@ -107,8 +130,13 @@ namespace InvestigationGame.UI
         {
             if (InvestigationManager.Instance != null && InvestigationManager.Instance.HasUsedUrineTest)
             {
-                urineTestBtn.SetEnabled(false);
-                urineTestBtn.text = "Urine Test Used";
+                urineTestBtn.style.display = DisplayStyle.None; // Hide entirely if used
+            }
+            else
+            {
+                urineTestBtn.style.display = DisplayStyle.Flex;
+                urineTestBtn.SetEnabled(true);
+                urineTestBtn.text = "Use Urine Test (1x)";
             }
         }
 
