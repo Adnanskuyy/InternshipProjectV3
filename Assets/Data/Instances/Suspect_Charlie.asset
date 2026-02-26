@@ -16,9 +16,10 @@ MonoBehaviour:
   PolaroidSprite: {fileID: -5304994338159628843, guid: fa181e765732e1f44b54e00735c9f00f, type: 3}
   PhysicalCharacteristics:
     Description: Dilated pupils, jittery movements.
-    Image: {fileID: 0}
+    Image: {fileID: -7175819077659518136, guid: a62a829d80024e0498a78c7cca4f4205, type: 3}
   Behavior:
     Description: Arrived late to work, avoiding eye contact.
-    Image: {fileID: 0}
+    Image: {fileID: 7531101040889140197, guid: c0c48f2f307e2d7469da063ad6f77270, type: 3}
   Rumors: I heard Charlie has been acting very strange lately...
   IsUser: 0
+  hasBeenTested: 0

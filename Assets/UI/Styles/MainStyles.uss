@@ -113,6 +113,24 @@
     font-size: 24px;
     white-space: normal;
     color: rgb(40, 40, 40);
+    margin-bottom: 10px;
+}
+
+.evidence-thumbnail {
+    width: 250px;
+    height: 150px;
+    background-color: rgb(200, 200, 200);
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.2s;
+    transition-property: scale;
+}
+
+.evidence-thumbnail:hover {
+    scale: 1.05;
+    cursor: link;
 }
 
 .action-bar {
@@ -299,4 +317,35 @@
     color: white;
     width: 200px;
     padding: 15px;
+}
+
+/* Expanded Image Overlay */
+.expanded-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    align-items: center;
+    justify-content: center;
+}
+
+.expanded-image-content {
+    width: 80%;
+    height: 80%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.expanded-image-close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(200, 50, 50);
+    color: white;
+    font-size: 32px;
+    -unity-font-style: bold;
+    border-radius: 30px;
 }

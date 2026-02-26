@@ -16,9 +16,10 @@ MonoBehaviour:
   PolaroidSprite: {fileID: -7068292343059816063, guid: 64022512e6f99de4cb7edca3a8be5afd, type: 3}
   PhysicalCharacteristics:
     Description: Dilated pupils, jittery movements.
-    Image: {fileID: 0}
+    Image: {fileID: -1248614289692536024, guid: 32aae37c0eb9c0d4584d7e02a2770d63, type: 3}
   Behavior:
     Description: Arrived late to work, avoiding eye contact.
-    Image: {fileID: 0}
+    Image: {fileID: 1019242373938375140, guid: 9b91f31e3ede8be4b8362581232af74e, type: 3}
   Rumors: I heard Diana has been acting very strange lately...
   IsUser: 0
+  hasBeenTested: 0

@@ -43,9 +43,11 @@
                 <ui:ScrollView style="flex-grow: 1;">
                     <ui:Label text="Physical Characteristics" class="detail-section-title" />
                     <ui:Label name="PhysicalText" text="..." class="detail-text" />
+                    <ui:VisualElement name="PhysicalImageThumbnail" class="evidence-thumbnail" style="display: none;" />
                     
                     <ui:Label text="Behavioral Evidence" class="detail-section-title" />
                     <ui:Label name="BehaviorText" text="..." class="detail-text" />
+                    <ui:VisualElement name="BehaviorImageThumbnail" class="evidence-thumbnail" style="display: none;" />
                     
                     <ui:Label text="Rumors" class="detail-section-title" />
                     <ui:Label name="RumorsText" text="..." class="detail-text" />
@@ -86,6 +88,12 @@
                 <ui:Label name="TutorialText" text="Instruction goes here." class="tutorial-text" />
                 <ui:Button name="TutorialNextBtn" text="NEXT" class="action-btn tutorial-next-btn" />
             </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- Expanded Image Overlay -->
+        <ui:VisualElement name="ExpandedImageOverlay" class="expanded-image-overlay" style="display: none;">
+            <ui:VisualElement name="ExpandedImageContent" class="expanded-image-content" />
+            <ui:Button name="ExpandedImageCloseBtn" text="X" class="expanded-image-close-btn" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

@@ -11,7 +11,9 @@ namespace InvestigationGame.UI
         private Label nameLabel;
         private VisualElement detailImage;
         private Label physicalText;
+        private VisualElement physicalThumbnail;
         private Label behaviorText;
+        private VisualElement behaviorThumbnail;
         private Label rumorsText;
 
         private Button closeBtn;
@@ -20,6 +22,11 @@ namespace InvestigationGame.UI
         private Button negativeBtn;
         private Button unsureBtn;
         private VisualElement urineTestStamp;
+
+        // Expanded Image Overlay Elements
+        private VisualElement expandedImageOverlay;
+        private VisualElement expandedImageContent;
+        private Button expandedImageCloseBtn;
 
         private SuspectData currentSuspect;
         private System.Action<SuspectData, Verdict> onVerdictSubmitted;
@@ -33,7 +40,9 @@ namespace InvestigationGame.UI
             nameLabel = panelRoot.Q<Label>("DetailNameLabel");
             detailImage = panelRoot.Q<VisualElement>("DetailImage");
             physicalText = panelRoot.Q<Label>("PhysicalText");
+            physicalThumbnail = panelRoot.Q<VisualElement>("PhysicalImageThumbnail");
             behaviorText = panelRoot.Q<Label>("BehaviorText");
+            behaviorThumbnail = panelRoot.Q<VisualElement>("BehaviorImageThumbnail");
             rumorsText = panelRoot.Q<Label>("RumorsText");
 
             closeBtn = panelRoot.Q<Button>("CloseDetailBtn");
@@ -43,6 +52,23 @@ namespace InvestigationGame.UI
             unsureBtn = panelRoot.Q<Button>("VerdictUnsureBtn");
             urineTestStamp = panelRoot.Q<VisualElement>("UrineTestStamp");
 
+            // Query expanded image overlay elements (assuming they are in the root scope or a parent scope)
+            var uiDocument = panelRoot.parent?.parent; // Navigate up to find the document root if necessary, or pass it in. 
+            // In our case, the DetailPanel and ExpandedImageOverlay are siblings under the main-container.
+            // Let's try querying from the panelRoot's parent.
+            var mainContainer = panelRoot.parent;
+            if (mainContainer != null)
+            {
+                expandedImageOverlay = mainContainer.Q<VisualElement>("ExpandedImageOverlay");
+                expandedImageContent = mainContainer.Q<VisualElement>("ExpandedImageContent");
+                expandedImageCloseBtn = mainContainer.Q<Button>("ExpandedImageCloseBtn");
+
+                if (expandedImageCloseBtn != null)
+                {
+                    expandedImageCloseBtn.clicked += HideExpandedImage;
+                }
+            }
+
             // Register events
             closeBtn.clicked += Hide;
             urineTestBtn.clicked += OnUrineTestClicked;
@@ -50,6 +76,29 @@ namespace InvestigationGame.UI
             positiveBtn.clicked += () => SubmitVerdict(Verdict.Positive);
             negativeBtn.clicked += () => SubmitVerdict(Verdict.Negative);
             unsureBtn.clicked += () => SubmitVerdict(Verdict.Unsure);
+
+            // Thumbnail Click Events
+            if (physicalThumbnail != null)
+            {
+                physicalThumbnail.RegisterCallback<ClickEvent>(evt =>
+                {
+                    if (currentSuspect?.PhysicalCharacteristics.Image != null)
+                    {
+                        ShowExpandedImage(currentSuspect.PhysicalCharacteristics.Image);
+                    }
+                });
+            }
+
+            if (behaviorThumbnail != null)
+            {
+                behaviorThumbnail.RegisterCallback<ClickEvent>(evt =>
+                {
+                    if (currentSuspect?.Behavior.Image != null)
+                    {
+                        ShowExpandedImage(currentSuspect.Behavior.Image);
+                    }
+                });
+            }
 
             Hide(); // Hidden by default
         }
@@ -64,6 +113,33 @@ namespace InvestigationGame.UI
             behaviorText.text = suspect.Behavior.Description;
             rumorsText.text = suspect.Rumors;
 
+            // Handle Thumbnails
+            if (physicalThumbnail != null)
+            {
+                if (suspect.PhysicalCharacteristics.Image != null)
+                {
+                    physicalThumbnail.style.display = DisplayStyle.Flex;
+                    physicalThumbnail.style.backgroundImage = new StyleBackground(suspect.PhysicalCharacteristics.Image);
+                }
+                else
+                {
+                    physicalThumbnail.style.display = DisplayStyle.None;
+                }
+            }
+
+            if (behaviorThumbnail != null)
+            {
+                if (suspect.Behavior.Image != null)
+                {
+                    behaviorThumbnail.style.display = DisplayStyle.Flex;
+                    behaviorThumbnail.style.backgroundImage = new StyleBackground(suspect.Behavior.Image);
+                }
+                else
+                {
+                    behaviorThumbnail.style.display = DisplayStyle.None;
+                }
+            }
+
             if (suspect.PolaroidSprite != null)
             {
                 detailImage.style.backgroundImage = new StyleBackground(suspect.PolaroidSprite);
@@ -76,7 +152,7 @@ namespace InvestigationGame.UI
             if (currentSuspect.hasBeenTested && urineTestStamp != null)
             {
                 urineTestStamp.style.display = DisplayStyle.Flex;
-                urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.red) : new StyleColor(Color.green);
+                urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.green) : new StyleColor(Color.red);
                 var stampLabel = urineTestStamp.Q<Label>("UrineTestStampLabel");
                 if (stampLabel != null)
                 {
@@ -113,7 +189,7 @@ namespace InvestigationGame.UI
                 if (urineTestStamp != null)
                 {
                     urineTestStamp.style.display = DisplayStyle.Flex;
-                    urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.red) : new StyleColor(Color.green);
+                    urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.green) : new StyleColor(Color.red);
 
                     var stampLabel = urineTestStamp.Q<Label>("UrineTestStampLabel");
                     if (stampLabel != null)
@@ -148,6 +224,23 @@ namespace InvestigationGame.UI
             {
                 onVerdictSubmitted?.Invoke(currentSuspect, verdict);
                 Hide();
+            }
+        }
+
+        private void ShowExpandedImage(Sprite sprite)
+        {
+            if (expandedImageOverlay != null && expandedImageContent != null)
+            {
+                expandedImageContent.style.backgroundImage = new StyleBackground(sprite);
+                expandedImageOverlay.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        private void HideExpandedImage()
+        {
+            if (expandedImageOverlay != null)
+            {
+                expandedImageOverlay.style.display = DisplayStyle.None;
             }
         }
     }
