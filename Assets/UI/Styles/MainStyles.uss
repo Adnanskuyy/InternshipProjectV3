@@ -10,7 +10,6 @@
     align-items: center;
     width: 100%;
     margin-top: 50px;
-    gap: 40px;
 }
 
 /* Added class for the TemplateContainer wrapper */
@@ -237,7 +236,6 @@
     display: none;
     align-items: center;
     justify-content: center;
-    picking-mode: ignore; /* Important: Let clicks pass through the dark overlay */
 }
 
 .tutorial-highlight-box {
@@ -246,8 +244,6 @@
     border-color: rgb(255, 200, 50);
     border-radius: 12px;
     background-color: transparent;
-    pointer-events: none; /* Let clicks pass through if we want to allow interacting with the highlighted element */
-    picking-mode: ignore; /* Important: Let clicks pass through the highlight box */
 }
 
 /* Added "Juice" Glow Class for Polish Task 2 */
@@ -262,8 +258,6 @@
     border-top-color: rgba(255, 200, 50, 0.8);
     border-left-color: rgba(255, 200, 50, 0.8);
     border-right-color: rgba(255, 200, 50, 0.8);
-    pointer-events: none;
-    picking-mode: ignore;
 }
 
 .tutorial-dialog-panel {
@@ -281,7 +275,6 @@
     top: 50%;
     left: 50%;
     translate: -50% -50%;
-    picking-mode: position; /* Important: Ensure the dialog catches clicks (like the Next button) */
     /* box-shadow: 0 10px 30px rgba(0,0,0,0.5); */
 }
 

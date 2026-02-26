@@ -41,6 +41,11 @@ namespace InvestigationGame.UI
             {
                 nextBtn.clicked += OnNextClicked;
             }
+
+            // Apply picking modes via C# to avoid USS warnings
+            if (tutorialOverlay != null) tutorialOverlay.pickingMode = PickingMode.Ignore;
+            if (highlightBox != null) highlightBox.pickingMode = PickingMode.Ignore;
+            if (dialogPanel != null) dialogPanel.pickingMode = PickingMode.Position;
         }
 
         public void TryStartTutorial(bool forceStart = false)

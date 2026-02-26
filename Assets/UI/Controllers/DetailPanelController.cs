@@ -46,7 +46,7 @@ namespace InvestigationGame.UI
             // Register events
             closeBtn.clicked += Hide;
             urineTestBtn.clicked += OnUrineTestClicked;
-            
+
             positiveBtn.clicked += () => SubmitVerdict(Verdict.Positive);
             negativeBtn.clicked += () => SubmitVerdict(Verdict.Negative);
             unsureBtn.clicked += () => SubmitVerdict(Verdict.Unsure);
@@ -107,14 +107,14 @@ namespace InvestigationGame.UI
             {
                 // Uncover the truth
                 Debug.Log($"Urine test used on {currentSuspect.SuspectName}! Truth: {(currentSuspect.IsUser ? "Positive" : "Negative")}");
-                
+
                 currentSuspect.hasBeenTested = true;
 
                 if (urineTestStamp != null)
                 {
                     urineTestStamp.style.display = DisplayStyle.Flex;
                     urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.red) : new StyleColor(Color.green);
-                    
+
                     var stampLabel = urineTestStamp.Q<Label>("UrineTestStampLabel");
                     if (stampLabel != null)
                     {
@@ -128,13 +128,15 @@ namespace InvestigationGame.UI
 
         private void UpdateUrineTestButtonState()
         {
+            urineTestBtn.style.display = DisplayStyle.Flex; // Always keep it in layout
+
             if (InvestigationManager.Instance != null && InvestigationManager.Instance.HasUsedUrineTest)
             {
-                urineTestBtn.style.display = DisplayStyle.None; // Hide entirely if used
+                urineTestBtn.SetEnabled(false);
+                urineTestBtn.text = "Urine Test (Used)";
             }
             else
             {
-                urineTestBtn.style.display = DisplayStyle.Flex;
                 urineTestBtn.SetEnabled(true);
                 urineTestBtn.text = "Use Urine Test (1x)";
             }

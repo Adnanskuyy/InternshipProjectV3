@@ -27,16 +27,16 @@
 
         <!-- Detail Panel Overlay -->
         <ui:VisualElement name="DetailPanel" class="detail-panel">
-            <ui:Button name="CloseDetailBtn" text="X" class="detail-close-btn" />
             
             <ui:VisualElement class="detail-left">
                 <!-- Changed hardcoded height to flex-grow and scale-to-fit to maximize image size -->
                 <ui:VisualElement name="DetailImage" style="width: 100%; flex-grow: 1; -unity-background-scale-mode: scale-to-fit; background-color: gray; margin-bottom: 20px;" />
-                <ui:Label name="DetailNameLabel" text="Name" class="detail-title" />
                 <!-- Urine Test Stamp -->
-                <ui:VisualElement name="UrineTestStamp" style="display: none; width: 100%; height: 50px; background-color: red; justify-content: center; align-items: center; margin-top: 10px;">
+                <ui:VisualElement name="UrineTestStamp" style="display: none; width: 100%; height: 50px; background-color: red; justify-content: center; align-items: center; margin-bottom: 20px;">
                     <ui:Label name="UrineTestStampLabel" text="TEST RESULT: POSITIVE" style="color: white; -unity-font-style: bold; font-size: 20px;" />
                 </ui:VisualElement>
+                <ui:Label name="DetailNameLabel" text="Name" class="detail-title" />
+                <ui:Button name="UrineTestBtn" text="Use Urine Test (1x)" class="action-btn btn-urine" style="width: 90%; margin-bottom: 10px; align-self: center; flex-grow: 0;" />
             </ui:VisualElement>
 
             <ui:VisualElement class="detail-right">
@@ -53,12 +53,13 @@
 
                 <ui:VisualElement class="action-bar">
                     <ui:VisualElement name="UrineTestStamp" class="stamp-image" style="display: none; width: 200px; height: 100px; position: absolute; top: 20px; right: 20px; background-color: rgba(255, 0, 0, 0.5);" />
-                    <ui:Button name="UrineTestBtn" text="Use Urine Test (1x)" class="action-btn btn-urine" />
                     <ui:Button name="VerdictPositiveBtn" text="Verdict: Positive" class="action-btn btn-positive" />
                     <ui:Button name="VerdictNegativeBtn" text="Verdict: Negative" class="action-btn btn-negative" />
                     <ui:Button name="VerdictUnsureBtn" text="Verdict: Unsure" class="action-btn btn-unsure" />
                 </ui:VisualElement>
             </ui:VisualElement>
+            
+            <ui:Button name="CloseDetailBtn" text="X" class="detail-close-btn" />
         </ui:VisualElement>
 
         <!-- Verdict Overlay -->
