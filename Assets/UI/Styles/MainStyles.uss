@@ -102,7 +102,7 @@
 }
 
 .detail-section-title {
-    font-size: 32px;
+    font-size: 40px;
     -unity-font-style: bold;
     margin-top: 25px;
     margin-bottom: 10px;
@@ -110,7 +110,7 @@
 }
 
 .detail-text {
-    font-size: 24px;
+    font-size: 36px;
     white-space: normal;
     color: rgb(40, 40, 40);
     margin-bottom: 10px;

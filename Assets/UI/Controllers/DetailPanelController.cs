@@ -71,7 +71,7 @@ namespace InvestigationGame.UI
 
             // Register events
             closeBtn.clicked += Hide;
-            urineTestBtn.clicked += OnUrineTestClicked;
+            urineTestBtn.clicked += OnUrineTestClicked; 
 
             positiveBtn.clicked += () => SubmitVerdict(Verdict.Positive);
             negativeBtn.clicked += () => SubmitVerdict(Verdict.Negative);

@@ -15,11 +15,14 @@ MonoBehaviour:
   SuspectName: Diana
   PolaroidSprite: {fileID: -7068292343059816063, guid: 64022512e6f99de4cb7edca3a8be5afd, type: 3}
   PhysicalCharacteristics:
-    Description: Dilated pupils, jittery movements.
-    Image: {fileID: -1248614289692536024, guid: 32aae37c0eb9c0d4584d7e02a2770d63, type: 3}
+    Description: Sering menyeka atau menggosok hidungnya hingga kemerahan. Matanya
+      sering berair dan ia sering bersin-bersin.
+    Image: {fileID: 6814257834164556437, guid: 8689c9f2d73950c45b53e1835d444d24, type: 3}
   Behavior:
-    Description: Arrived late to work, avoiding eye contact.
+    Description: Memiliki energi yang sangat tinggi dan tidak bisa duduk diam,
     Image: {fileID: 1019242373938375140, guid: 9b91f31e3ede8be4b8362581232af74e, type: 3}
-  Rumors: I heard Diana has been acting very strange lately...
+  Rumors: Karena kebiasaan menggosok hidung dan energinya yang meluap-luap, banyak
+    yang berbisik bahwa ia menggunakan stimulan untuk menjaga staminanya sepanjang
+    hari.
   IsUser: 0
   hasBeenTested: 0

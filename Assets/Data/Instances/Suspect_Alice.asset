@@ -15,11 +15,16 @@ MonoBehaviour:
   SuspectName: Alice
   PolaroidSprite: {fileID: 5329720113751402079, guid: 5e6ba35648e33ed458b02472d340274a, type: 3}
   PhysicalCharacteristics:
-    Description: Dilated pupils, jittery movements.
-    Image: {fileID: 8957324059118975939, guid: 8b2939c912993024b8bfe2b02c967b51, type: 3}
+    Description: Sering mengatupkan rahang dengan kuat atau mengunyah bibir bagian
+      dalam secara tidak sadar. Matanya sering tampak berkaca-kaca namun pupilnya
+      tetap kecil meski di ruangan redup.
+    Image: {fileID: -4670967925120817369, guid: 8aa1e9cd3b15cc041a779599da3c7f33, type: 3}
   Behavior:
-    Description: Arrived late to work, avoiding eye contact.
+    Description: Mengalami perubahan suasana hati yang ekstrem; bisa sangat ramah
+      lalu tiba-tiba menjadi sangat defensif atau paranoid tanpa alasan jelas. Sering
+      meminta izin ke kamar mandi dalam durasi yang lama.
     Image: {fileID: -4695704528184898611, guid: b8844114cf5a075478d14ec12adf957d, type: 3}
-  Rumors: I heard Alice has been acting very strange lately...
+  Rumors: Tetangga sering mendengar suara gaduh dari rumahnya pada jam-jam ganjil,
+    dan ia sering terlihat menggadaikan barang-barang pribadi yang berharga.
   IsUser: 1
   hasBeenTested: 0

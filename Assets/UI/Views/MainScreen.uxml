@@ -18,7 +18,7 @@
                 </ui:VisualElement>
                 
                 <!-- Submit Button -->
-                <ui:Button name="FinalSubmitBtn" text="SUBMIT FINAL VERDICTS" class="action-btn" style="margin-top: 40px; margin-bottom: 40px; background-color: rgb(50, 100, 200); color: white;" />
+                <ui:Button name="FinalSubmitBtn" text="SELESAI" class="action-btn" style="margin-top: 40px; margin-bottom: 40px; background-color: rgb(50, 100, 200); color: white;" />
                 
                 <!-- Help Button -->
                 <ui:Button name="HelpBtn" text="?" class="help-btn" />
@@ -35,21 +35,21 @@
                 <ui:VisualElement name="UrineTestStamp" style="display: none; width: 100%; height: 50px; background-color: red; justify-content: center; align-items: center; margin-bottom: 20px;">
                     <ui:Label name="UrineTestStampLabel" text="TEST RESULT: POSITIVE" style="color: white; -unity-font-style: bold; font-size: 20px;" />
                 </ui:VisualElement>
-                <ui:Label name="DetailNameLabel" text="Name" class="detail-title" />
-                <ui:Button name="UrineTestBtn" text="Use Urine Test (1x)" class="action-btn btn-urine" style="width: 90%; margin-bottom: 10px; align-self: center; flex-grow: 0;" />
+                <ui:Label name="DetailNameLabel" text="Nama" class="detail-title" />
+                <ui:Button name="UrineTestBtn" text="Gunakan tes urin (1x)" class="action-btn btn-urine" style="width: 90%; margin-bottom: 10px; align-self: center; flex-grow: 0;" />
             </ui:VisualElement>
 
             <ui:VisualElement class="detail-right">
                 <ui:ScrollView style="flex-grow: 1;">
-                    <ui:Label text="Physical Characteristics" class="detail-section-title" />
+                    <ui:Label text="Ciri-ciri Fisik" class="detail-section-title" />
                     <ui:Label name="PhysicalText" text="..." class="detail-text" />
                     <ui:VisualElement name="PhysicalImageThumbnail" class="evidence-thumbnail" style="display: none;" />
                     
-                    <ui:Label text="Behavioral Evidence" class="detail-section-title" />
+                    <ui:Label text="Ciri-ciri Perilaku" class="detail-section-title" />
                     <ui:Label name="BehaviorText" text="..." class="detail-text" />
                     <ui:VisualElement name="BehaviorImageThumbnail" class="evidence-thumbnail" style="display: none;" />
                     
-                    <ui:Label text="Rumors" class="detail-section-title" />
+                    <ui:Label text="Rumor" class="detail-section-title" />
                     <ui:Label name="RumorsText" text="..." class="detail-text" />
                 </ui:ScrollView>
 
@@ -67,14 +67,14 @@
         <!-- Verdict Overlay -->
         <ui:VisualElement name="VerdictOverlay" class="verdict-overlay">
             <ui:VisualElement class="verdict-panel">
-                <ui:Label name="VerdictTitle" text="INVESTIGATION COMPLETE" class="verdict-title" />
-                <ui:Label name="VerdictResult" text="RESULT" class="verdict-result" />
+                <ui:Label name="VerdictTitle" text="INVESTIGASI SELESAI" class="verdict-title" />
+                <ui:Label name="VerdictResult" text="HASIL" class="verdict-result" />
                 
                 <ui:ScrollView name="VerdictDetailsList" class="verdict-details-list">
                     <!-- Suspect Result Items will be dynamically instantiated here -->
                 </ui:ScrollView>
                 
-                <ui:Button name="PlayAgainBtn" text="PLAY AGAIN" class="action-btn" style="background-color: rgb(50, 100, 200); color: white;" />
+                <ui:Button name="PlayAgainBtn" text="MAIN LAGI" class="action-btn" style="background-color: rgb(50, 100, 200); color: white;" />
             </ui:VisualElement>
         </ui:VisualElement>
 
