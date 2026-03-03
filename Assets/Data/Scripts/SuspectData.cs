@@ -27,5 +27,14 @@ namespace InvestigationGame.Data
 
         [Header("Truth")]
         public bool IsUser;
+
+        [Header("Runtime State")]
+        [HideInInspector]
+        public bool hasBeenTested;
+
+        private void OnEnable()
+        {
+            hasBeenTested = false; // Reset state when the game starts or SO is loaded
+        }
     }
 }

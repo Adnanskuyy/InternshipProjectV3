@@ -10,7 +10,6 @@
     align-items: center;
     width: 100%;
     margin-top: 50px;
-    gap: 40px;
 }
 
 /* Added class for the TemplateContainer wrapper */
@@ -103,7 +102,7 @@
 }
 
 .detail-section-title {
-    font-size: 32px;
+    font-size: 40px;
     -unity-font-style: bold;
     margin-top: 25px;
     margin-bottom: 10px;
@@ -111,9 +110,27 @@
 }
 
 .detail-text {
-    font-size: 24px;
+    font-size: 36px;
     white-space: normal;
     color: rgb(40, 40, 40);
+    margin-bottom: 10px;
+}
+
+.evidence-thumbnail {
+    width: 250px;
+    height: 150px;
+    background-color: rgb(200, 200, 200);
+    border-radius: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    -unity-background-scale-mode: scale-to-fit;
+    transition-duration: 0.2s;
+    transition-property: scale;
+}
+
+.evidence-thumbnail:hover {
+    scale: 1.05;
+    cursor: link;
 }
 
 .action-bar {
@@ -209,4 +226,126 @@
 .suspect-result-status {
     font-size: 16px;
     -unity-font-style: bold;
+}
+
+/* Help Button */
+.help-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    font-size: 32px;
+    -unity-font-style: bold;
+    background-color: rgb(50, 150, 200);
+    color: white;
+}
+
+/* Tutorial Overlay Styling */
+.tutorial-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Use a slightly transparent background to block clicks but show game underneath */
+    background-color: rgba(0, 0, 0, 0.6); 
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.tutorial-highlight-box {
+    position: absolute;
+    border-width: 5px;
+    border-color: rgb(255, 200, 50);
+    border-radius: 12px;
+    background-color: transparent;
+}
+
+/* Added "Juice" Glow Class for Polish Task 2 */
+.tutorial-glow {
+    position: absolute;
+    border-width: 6px;
+    border-radius: 12px;
+    background-color: transparent;
+    border-color: rgba(255, 200, 50, 1);
+    /* Unity UI Toolkit box-shadow approximation */
+    border-bottom-color: rgba(255, 200, 50, 0.8);
+    border-top-color: rgba(255, 200, 50, 0.8);
+    border-left-color: rgba(255, 200, 50, 0.8);
+    border-right-color: rgba(255, 200, 50, 0.8);
+}
+
+.tutorial-dialog-panel {
+    background-color: rgb(250, 250, 250);
+    border-width: 4px;
+    border-color: rgb(50, 100, 200);
+    border-radius: 15px;
+    padding: 30px;
+    width: 450px;
+    min-height: 250px;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    /* Default position centered */
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    /* box-shadow: 0 10px 30px rgba(0,0,0,0.5); */
+}
+
+.tutorial-title {
+    font-size: 36px;
+    -unity-font-style: bold;
+    color: rgb(30, 30, 30);
+    margin-bottom: 20px;
+}
+
+.tutorial-text {
+    font-size: 24px;
+    color: rgb(50, 50, 50);
+    white-space: normal;
+    -unity-text-align: middle-center;
+    margin-bottom: 30px;
+    flex-grow: 1;
+}
+
+.tutorial-next-btn {
+    background-color: rgb(50, 200, 100);
+    color: white;
+    width: 200px;
+    padding: 15px;
+}
+
+/* Expanded Image Overlay */
+.expanded-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    align-items: center;
+    justify-content: center;
+}
+
+.expanded-image-content {
+    width: 80%;
+    height: 80%;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.expanded-image-close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(200, 50, 50);
+    color: white;
+    font-size: 32px;
+    -unity-font-style: bold;
+    border-radius: 30px;
 }

@@ -22,6 +22,8 @@ namespace InvestigationGame.UI
         private VisualElement root;
         private Button finalSubmitBtn;
         private VisualElement verdictOverlay;
+        
+        public InvestigationGame.UI.TutorialManager TutorialManager { get; private set; }
 
         private void Awake()
         {
@@ -52,6 +54,14 @@ namespace InvestigationGame.UI
             {
                 playAgainBtn.clicked += () => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+
+            // Setup Tutorial
+            TutorialManager = new TutorialManager(root, this);
+            var helpBtn = root.Q<Button>("HelpBtn");
+            if (helpBtn != null)
+            {
+                helpBtn.clicked += () => TutorialManager.TryStartTutorial(forceStart: true);
+            }
         }
 
         private void Start()
@@ -59,6 +69,12 @@ namespace InvestigationGame.UI
             if (InvestigationManager.Instance != null)
             {
                 InvestigationManager.Instance.OnInvestigationComplete += HandleInvestigationComplete;
+            }
+            
+            // Try to start the tutorial on first run
+            if (TutorialManager != null)
+            {
+                TutorialManager.TryStartTutorial();
             }
         }
 
@@ -99,6 +115,7 @@ namespace InvestigationGame.UI
         private void OnSuspectClicked(SuspectData suspect)
         {
             detailPanelController.Show(suspect);
+            TutorialManager?.NotifySuspectClicked();
         }
 
         private void OnVerdictSubmitted(SuspectData suspect, Verdict verdict)
@@ -109,6 +126,7 @@ namespace InvestigationGame.UI
                 InvestigationManager.Instance.SubmitVerdict(suspect, verdict);
             }
             UpdateSubmitButtonState();
+            TutorialManager?.NotifyVerdictSubmitted();
         }
 
         private void UpdateSubmitButtonState()
