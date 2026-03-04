@@ -18,10 +18,10 @@ MonoBehaviour:
     Description: Tubuhnya sangat kurus karena sering lupa makan. Wajahnya sangat
       pucat dengan kantung mata hitam yang sangat pekat. Tangannya sering gemetar
       (tremor)
-    Image: {fileID: -7175819077659518136, guid: a62a829d80024e0498a78c7cca4f4205, type: 3}
+    Image: {fileID: -8791789699575616908, guid: aa7321fd98b5031438331cac75a6f0ab, type: 3}
   Behavior:
     Description: Sering tampak gelisah dan berbicara sangat cepat
-    Image: {fileID: 7531101040889140197, guid: c0c48f2f307e2d7469da063ad6f77270, type: 3}
+    Image: {fileID: 0}
   Rumors: Sering keluar dan berkeliaran di malam hari serta tidur di pagi hari
   IsUser: 0
   hasBeenTested: 0
