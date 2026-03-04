@@ -20,7 +20,7 @@ MonoBehaviour:
     Image: {fileID: 6814257834164556437, guid: 8689c9f2d73950c45b53e1835d444d24, type: 3}
   Behavior:
     Description: Memiliki energi yang sangat tinggi dan tidak bisa duduk diam,
-    Image: {fileID: 1019242373938375140, guid: 9b91f31e3ede8be4b8362581232af74e, type: 3}
+    Image: {fileID: 0}
   Rumors: Karena kebiasaan menggosok hidung dan energinya yang meluap-luap, banyak
     yang berbisik bahwa ia menggunakan stimulan untuk menjaga staminanya sepanjang
     hari.

@@ -15,14 +15,12 @@ MonoBehaviour:
   SuspectName: Bob
   PolaroidSprite: {fileID: -6773448071781818622, guid: 1e105ee1f8fe14343905e3fd61fa5bb2, type: 3}
   PhysicalCharacteristics:
-    Description: Sering terlihat memijat pelipisnya dan matanya sering merah karena
-      kurang tidur. Ia selalu membawa botol obat tanpa label yang berisi pil-pil
-      berbagai warna.
+    Description: Mata kemerahan
     Image: {fileID: -3672593762394673520, guid: 000579e291faca049bc54d5419ca963b, type: 3}
   Behavior:
     Description: Sangat sensitif terhadap cahaya terang dan suara keras. Ia sering
       tampak linglung
-    Image: {fileID: -7945758063038364896, guid: 4a3bd3029db24764e9a224b25ee29d51, type: 3}
-  Rumors: I heard Bob has been acting very strange lately...
+    Image: {fileID: 0}
+  Rumors: Bob sering begadang di dalam kamar
   IsUser: 0
   hasBeenTested: 0
