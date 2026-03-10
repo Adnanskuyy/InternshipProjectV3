@@ -249,11 +249,12 @@
     left: 0;
     right: 0;
     bottom: 0;
-    /* Use a slightly transparent background to block clicks but show game underneath */
-    background-color: rgba(0, 0, 0, 0.6); 
+    /* Set to transparent, we use code to handle the dimming dynamically now */
+    background-color: transparent; 
     display: none;
-    align-items: center;
-    justify-content: center;
+    /* Fix: Don't center children to allow correct absolute positioning of highlighted elements */
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 .tutorial-highlight-box {
@@ -284,7 +285,7 @@
     border-color: rgb(50, 100, 200);
     border-radius: 15px;
     padding: 30px;
-    width: 450px;
+    width: 600px;
     min-height: 250px;
     align-items: center;
     justify-content: space-between;
@@ -349,3 +350,21 @@
     -unity-font-style: bold;
     border-radius: 30px;
 }
+
+.polaroid-status {
+    -unity-text-align: middle-center;
+    font-size: 32px;
+    margin-top: 20px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    -unity-font-style: bold;
+    color: white;
+    align-self: center;
+    transition-duration: 0.1s;
+    transition-property: background-color;
+}
+
+.status-positive { background-color: rgb(46, 125, 50); }
+.status-negative { background-color: rgb(198, 40, 40); }
+.status-unsure { background-color: rgb(97, 97, 97); }
+

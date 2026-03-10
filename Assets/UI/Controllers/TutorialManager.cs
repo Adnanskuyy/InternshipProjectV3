@@ -16,6 +16,11 @@ namespace InvestigationGame.UI
         private Label textLabel;
         private Button nextBtn;
 
+        private VisualElement blockerTop;
+        private VisualElement blockerBottom;
+        private VisualElement blockerLeft;
+        private VisualElement blockerRight;
+
         private GameUIController mainController;
         private VisualElement root;
 
@@ -26,8 +31,16 @@ namespace InvestigationGame.UI
 
         public TutorialManager(VisualElement root, GameUIController controller)
         {
-            this.root = root;
             this.mainController = controller;
+            SetRoot(root);
+        }
+
+        public void SetRoot(VisualElement newRoot)
+        {
+            // Unregister from old elements if any
+            Cleanup();
+
+            this.root = newRoot;
 
             tutorialOverlay = root.Q<VisualElement>("TutorialOverlay");
             highlightBox = root.Q<VisualElement>("TutorialHighlightBox");
@@ -39,14 +52,54 @@ namespace InvestigationGame.UI
 
             if (nextBtn != null)
             {
-                nextBtn.clicked += OnNextClicked;
+                nextBtn.RegisterCallback<ClickEvent>(OnNextBtnClick);
             }
 
-            // Apply picking modes via C# to avoid USS warnings
-            if (tutorialOverlay != null) tutorialOverlay.pickingMode = PickingMode.Ignore;
+            if (tutorialOverlay != null)
+            {
+                // Create blockers if they don't exist
+                if (blockerTop == null)
+                {
+                    blockerTop = CreateBlocker();
+                    blockerBottom = CreateBlocker();
+                    blockerLeft = CreateBlocker();
+                    blockerRight = CreateBlocker();
+                    
+                    // Insert before highlightBox so dialog and highlight sit on top
+                    tutorialOverlay.Insert(0, blockerRight);
+                    tutorialOverlay.Insert(0, blockerLeft);
+                    tutorialOverlay.Insert(0, blockerBottom);
+                    tutorialOverlay.Insert(0, blockerTop);
+                }
+
+                // Make overlay transparent and allow clicks through to holes
+                tutorialOverlay.style.backgroundColor = new StyleColor(Color.clear);
+                tutorialOverlay.pickingMode = PickingMode.Ignore;
+            }
+
             if (highlightBox != null) highlightBox.pickingMode = PickingMode.Ignore;
             if (dialogPanel != null) dialogPanel.pickingMode = PickingMode.Position;
         }
+
+        private VisualElement CreateBlocker()
+        {
+            var blocker = new VisualElement();
+            blocker.style.backgroundColor = new StyleColor(new Color(0, 0, 0, 0.6f));
+            blocker.style.position = Position.Absolute;
+            blocker.pickingMode = PickingMode.Position; // Block clicks outside the hole
+            return blocker;
+        }
+
+        public void Cleanup()
+        {
+            if (nextBtn != null)
+            {
+                nextBtn.UnregisterCallback<ClickEvent>(OnNextBtnClick);
+            }
+            ClearHighlight();
+        }
+
+        private void OnNextBtnClick(ClickEvent evt) => OnNextClicked();
 
         public void TryStartTutorial(bool forceStart = false)
         {
@@ -61,20 +114,16 @@ namespace InvestigationGame.UI
         }
 
         private VisualElement currentHighlightTarget;
-        private VisualElement originalParent;
-        private int originalSiblingIndex;
         private IVisualElementScheduledItem breathingAnimation;
 
         private void StartTutorial()
         {
             isTutorialActive = true;
             currentStep = 0;
-            tutorialOverlay.style.display = DisplayStyle.Flex;
-            
-            // Set overlay to block clicks
             if (tutorialOverlay != null)
             {
-                tutorialOverlay.pickingMode = PickingMode.Position; 
+                tutorialOverlay.style.display = DisplayStyle.Flex;
+                tutorialOverlay.pickingMode = PickingMode.Ignore; 
             }
 
             ShowStep(currentStep);
@@ -83,7 +132,10 @@ namespace InvestigationGame.UI
         private void EndTutorial()
         {
             isTutorialActive = false;
-            tutorialOverlay.style.display = DisplayStyle.None;
+            if (tutorialOverlay != null)
+            {
+                tutorialOverlay.style.display = DisplayStyle.None;
+            }
             ClearHighlight();
             PlayerPrefs.SetInt(TUTORIAL_PREF_KEY, 1);
             PlayerPrefs.Save();
@@ -99,21 +151,27 @@ namespace InvestigationGame.UI
         {
             // Reset Highlight and Next Button
             ClearHighlight();
-            nextBtn.style.display = DisplayStyle.Flex;
-            nextBtn.text = "NEXT";
-            dialogPanel.style.top = new Length(50, LengthUnit.Percent);
-            dialogPanel.style.left = new Length(50, LengthUnit.Percent);
-            dialogPanel.style.translate = new Translate(new Length(-50, LengthUnit.Percent), new Length(-50, LengthUnit.Percent));
+            if (nextBtn != null)
+            {
+                nextBtn.style.display = DisplayStyle.Flex;
+                nextBtn.text = "LANJUT";
+            }
+            if (dialogPanel != null)
+            {
+                dialogPanel.style.top = new Length(50, LengthUnit.Percent);
+                dialogPanel.style.left = new Length(50, LengthUnit.Percent);
+                dialogPanel.style.translate = new Translate(new Length(-50, LengthUnit.Percent), new Length(-50, LengthUnit.Percent));
+            }
 
             switch (step)
             {
                 case 0:
-                    titleLabel.text = "WELCOME DETECTIVE";
-                    textLabel.text = "Your goal is to find exactly ONE drug user among these 4 suspects. Only one of them is guilty.";
+                    titleLabel.text = "SELAMAT DATANG DETEKTIF";
+                    textLabel.text = "Tujuan Anda adalah menemukan SATU pengguna narkoba di antara 4 tersangka ini. Hanya satu dari mereka yang bersalah.";
                     break;
                 case 1:
-                    titleLabel.text = "THE SUSPECTS";
-                    textLabel.text = "Click on a suspect's polaroid to review their file and evidence.";
+                    titleLabel.text = "PARA TERSANGKA";
+                    textLabel.text = "Klik pada foto polaroid tersangka untuk meninjau berkas dan bukti mereka.";
                     
                     // Highlight the first suspect in the grid
                     var polaroidGrid = root.Q<VisualElement>("PolaroidGrid");
@@ -129,11 +187,12 @@ namespace InvestigationGame.UI
                     nextBtn.style.display = DisplayStyle.None; // Wait for player click
                     break;
                 case 2:
-                    titleLabel.text = "THE EVIDENCE";
-                    textLabel.text = "Review their physical characteristics, behaviors, and rumors for clues.";
+                    titleLabel.text = "BUKTI-BUKTI";
+                    textLabel.text = "Tinjau ciri fisik, perilaku, dan rumor tentang mereka untuk mencari petunjuk.";
                     
                     // Highlight the detail text area
-                    var detailRight = root.Q<VisualElement>("DetailPanel").Q<VisualElement>(className: "detail-right");
+                    var detailPanel = root.Q<VisualElement>("DetailPanel");
+                    var detailRight = detailPanel?.Q<VisualElement>(className: "detail-right");
                     var scrollView = detailRight?.Q<ScrollView>();
                     if (scrollView != null)
                     {
@@ -145,8 +204,8 @@ namespace InvestigationGame.UI
                     }
                     break;
                 case 3:
-                    titleLabel.text = "THE URINE TEST";
-                    textLabel.text = "You have ONE Urine Test per game to get undeniable proof. Use it wisely!";
+                    titleLabel.text = "TES URIN";
+                    textLabel.text = "Anda hanya memiliki SATU Tes Urin per permainan untuk mendapatkan bukti yang tak terbantahkan. Gunakan dengan bijak!";
                     
                     var urineTestBtn = root.Q<Button>("UrineTestBtn");
                     if (urineTestBtn != null)
@@ -158,8 +217,8 @@ namespace InvestigationGame.UI
                     }
                     break;
                 case 4:
-                    titleLabel.text = "THE VERDICT";
-                    textLabel.text = "You must mark the real user as 'Positive' and everyone else as 'Negative'. Mark a verdict now to continue.";
+                    titleLabel.text = "KEPUTUSAN";
+                    textLabel.text = "Anda harus menandai pengguna narkoba sebagai 'Positif' dan yang lainnya sebagai 'Negatif'. Tandai keputusan sekarang untuk melanjutkan.";
                     
                     // Highlight the verdict buttons
                     var actionBar = root.Q<VisualElement>(className: "action-bar");
@@ -174,10 +233,11 @@ namespace InvestigationGame.UI
                     break;
                 case 5:
                     // Hide the detail panel automatically to show the final submit button
-                    root.Q<VisualElement>("DetailPanel").style.display = DisplayStyle.None;
+                    var dp = root.Q<VisualElement>("DetailPanel");
+                    if (dp != null) dp.style.display = DisplayStyle.None;
 
-                    titleLabel.text = "SUBMITTING THE REPORT";
-                    textLabel.text = "Once everyone has a verdict (Positive or Negative), submit your report to finish the investigation.";
+                    titleLabel.text = "MENGIRIM LAPORAN";
+                    textLabel.text = "Setelah semua orang memiliki keputusan (Positif atau Negatif), kirim laporan Anda untuk menyelesaikan penyelidikan.";
                     
                     var finalSubmitBtn = root.Q<Button>("FinalSubmitBtn");
                     if (finalSubmitBtn != null)
@@ -185,7 +245,7 @@ namespace InvestigationGame.UI
                         HighlightElement(finalSubmitBtn);
                         dialogPanel.style.top = 200;
                     }
-                    nextBtn.text = "GOT IT";
+                    nextBtn.text = "MENGERTI";
                     break;
                 default:
                     EndTutorial();
@@ -211,43 +271,77 @@ namespace InvestigationGame.UI
                 highlightBox.AddToClassList("tutorial-highlight-box"); // Base class
                 highlightBox.AddToClassList("tutorial-glow");
 
-                // Start breathing animation (Pulse scale from 1.0 to 1.05)
+                // Start breathing animation
                 StartBreathingAnimation();
 
-                // Attach GeometryChangedEvent to track target movement in real-time
+                // Attach GeometryChangedEvent
                 currentHighlightTarget.RegisterCallback<GeometryChangedEvent>(OnTargetGeometryChanged);
-
-                // Move the target into the TutorialOverlay so it renders ON TOP of the blocking layer
-                // and correctly receives pointer events.
-                originalParent = currentHighlightTarget.parent;
-                if (originalParent != null)
-                {
-                    originalSiblingIndex = originalParent.IndexOf(currentHighlightTarget);
-                    
-                    // Detach from current parent
-                    currentHighlightTarget.RemoveFromHierarchy();
-                    
-                    // Add to overlay
-                    tutorialOverlay.Add(currentHighlightTarget);
-                    
-                    // IMPORTANT: We must manually position it absolutely since it's no longer in its original flex layout
-                    currentHighlightTarget.style.position = Position.Absolute;
-                    currentHighlightTarget.style.left = currentHighlightTarget.worldBound.x;
-                    currentHighlightTarget.style.top = currentHighlightTarget.worldBound.y;
-                    currentHighlightTarget.style.width = currentHighlightTarget.worldBound.width;
-                    currentHighlightTarget.style.height = currentHighlightTarget.worldBound.height;
-                }
             });
         }
 
         private void UpdateHighlightBounds()
         {
-            if (currentHighlightTarget == null || highlightBox == null) return;
+            if (currentHighlightTarget == null || highlightBox == null) 
+            {
+                if (blockerTop != null)
+                {
+                    blockerTop.style.width = new Length(100, LengthUnit.Percent);
+                    blockerTop.style.height = new Length(100, LengthUnit.Percent);
+                    blockerTop.style.left = 0;
+                    blockerTop.style.top = 0;
+
+                    blockerBottom.style.display = DisplayStyle.None;
+                    blockerLeft.style.display = DisplayStyle.None;
+                    blockerRight.style.display = DisplayStyle.None;
+                }
+                return;
+            }
+            
             var worldBound = currentHighlightTarget.worldBound;
-            highlightBox.style.left = worldBound.x - 10;
-            highlightBox.style.top = worldBound.y - 10;
-            highlightBox.style.width = worldBound.width + 20;
-            highlightBox.style.height = worldBound.height + 20;
+            
+            // Use WorldToLocal to ensure correct positioning within the overlay
+            var localPos = tutorialOverlay.WorldToLocal(worldBound.position);
+            
+            float left = localPos.x - 10;
+            float top = localPos.y - 10;
+            float width = worldBound.width + 20;
+            float height = worldBound.height + 20;
+
+            highlightBox.style.left = left;
+            highlightBox.style.top = top;
+            highlightBox.style.width = width;
+            highlightBox.style.height = height;
+
+            if (blockerTop != null)
+            {
+                blockerBottom.style.display = DisplayStyle.Flex;
+                blockerLeft.style.display = DisplayStyle.Flex;
+                blockerRight.style.display = DisplayStyle.Flex;
+
+                // Top blocker
+                blockerTop.style.left = 0;
+                blockerTop.style.top = 0;
+                blockerTop.style.width = new Length(100, LengthUnit.Percent);
+                blockerTop.style.height = top;
+
+                // Bottom blocker
+                blockerBottom.style.left = 0;
+                blockerBottom.style.top = top + height;
+                blockerBottom.style.width = new Length(100, LengthUnit.Percent);
+                blockerBottom.style.height = new Length(100, LengthUnit.Percent);
+
+                // Left blocker
+                blockerLeft.style.left = 0;
+                blockerLeft.style.top = top;
+                blockerLeft.style.width = left;
+                blockerLeft.style.height = height;
+
+                // Right blocker
+                blockerRight.style.left = left + width;
+                blockerRight.style.top = top;
+                blockerRight.style.width = new Length(100, LengthUnit.Percent);
+                blockerRight.style.height = height;
+            }
         }
 
         private void OnTargetGeometryChanged(GeometryChangedEvent evt)
@@ -263,7 +357,6 @@ namespace InvestigationGame.UI
                 breathingAnimation.Pause();
             }
 
-            // Using the experimental animation API for UI Toolkit
             breathingAnimation = highlightBox.schedule.Execute(() =>
             {
                 if (scaleUp)
@@ -275,7 +368,7 @@ namespace InvestigationGame.UI
                     highlightBox.experimental.animation.Scale(1.0f, 500).Ease(Easing.InOutSine);
                 }
                 scaleUp = !scaleUp;
-            }).Every(500); // Loops every 500ms
+            }).Every(500);
         }
 
         private void ClearHighlight()
@@ -284,7 +377,7 @@ namespace InvestigationGame.UI
             {
                 breathingAnimation.Pause();
                 breathingAnimation = null;
-                highlightBox.style.scale = new StyleScale(new Scale(Vector3.one)); // Reset scale safely
+                highlightBox.style.scale = new StyleScale(new Scale(Vector3.one));
             }
 
             if (highlightBox != null)
@@ -295,33 +388,16 @@ namespace InvestigationGame.UI
             if (currentHighlightTarget != null)
             {
                 currentHighlightTarget.UnregisterCallback<GeometryChangedEvent>(OnTargetGeometryChanged);
-
-                if (originalParent != null)
-                {
-                    // Restore original parent and position
-                    currentHighlightTarget.RemoveFromHierarchy();
-                    originalParent.Insert(originalSiblingIndex, currentHighlightTarget);
-                    
-                    // Reset positional overrides
-                    currentHighlightTarget.style.position = StyleKeyword.Null;
-                    currentHighlightTarget.style.left = StyleKeyword.Null;
-                    currentHighlightTarget.style.top = StyleKeyword.Null;
-                    currentHighlightTarget.style.width = StyleKeyword.Null;
-                    currentHighlightTarget.style.height = StyleKeyword.Null;
-                }
             }
 
             currentHighlightTarget = null;
-            originalParent = null;
+            UpdateHighlightBounds(); // Resets blockers to cover full screen
         }
-
-        // --- Hooks for Game Flow ---
 
         public void NotifySuspectClicked()
         {
             if (isTutorialActive && currentStep == 1)
             {
-                // Advance to evidence
                 currentStep++;
                 ShowStep(currentStep);
             }
@@ -331,7 +407,6 @@ namespace InvestigationGame.UI
         {
             if (isTutorialActive && currentStep == 4)
             {
-                // Advance to final submit
                 currentStep++;
                 ShowStep(currentStep);
             }

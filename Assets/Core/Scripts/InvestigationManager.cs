@@ -42,6 +42,9 @@ namespace InvestigationGame.Core
 
         private void Start()
         {
+            // Reset state on start/restart
+            HasUsedUrineTest = false;
+
             if (masterSuspectPool == null || masterSuspectPool.Count == 0)
             {
                 Debug.LogError("Master suspect pool is empty!");

@@ -1,27 +1,35 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using InvestigationGame.Data;
+using InvestigationGame.Core;
 
 namespace InvestigationGame.UI
 {
-    public class SuspectUIElement
+    [UxmlElement]
+    public partial class SuspectUIElement : VisualElement
     {
-        public VisualElement Root { get; private set; }
+        private Label nameLabel;
+        private VisualElement imageContainer;
+        private Label statusLabel;
         private SuspectData suspectData;
         private System.Action<SuspectData> onClickCallback;
 
-        public SuspectUIElement(VisualTreeAsset template, SuspectData data, System.Action<SuspectData> onClick)
+        public SuspectUIElement() { }
+
+        public void Initialize(VisualTreeAsset template, SuspectData data, System.Action<SuspectData> onClick)
         {
             this.suspectData = data;
             this.onClickCallback = onClick;
 
-            // Instantiate from template
-            Root = template.Instantiate();
-            Root.AddToClassList("polaroid-container-item"); // Optional spacing class
+            // Clear any existing content and instantiate from template
+            this.Clear();
+            template.CloneTree(this);
+            this.AddToClassList("polaroid-container-item");
 
             // Get elements
-            var nameLabel = Root.Q<Label>("SuspectNameLabel");
-            var imageContainer = Root.Q<VisualElement>("PolaroidImage");
+            nameLabel = this.Q<Label>("SuspectNameLabel");
+            imageContainer = this.Q<VisualElement>("PolaroidImage");
+            statusLabel = this.Q<Label>("StatusLabel");
 
             // Assign data
             if (nameLabel != null) nameLabel.text = data.SuspectName;
@@ -31,10 +39,45 @@ namespace InvestigationGame.UI
                 imageContainer.style.backgroundImage = new StyleBackground(data.PolaroidSprite);
             }
 
-            // Register click event
-            // Using a clickable to handle pointer events easily
-            var clickable = new Clickable(() => onClickCallback?.Invoke(suspectData));
-            Root.AddManipulator(clickable);
+            // Register click event using standard RegisterCallback for Unity 6 consistency
+            this.RegisterCallback<ClickEvent>(OnElementClicked);
+
+            UpdateStatus(Verdict.Unsure);
+        }
+
+        private void OnElementClicked(ClickEvent evt)
+        {
+            onClickCallback?.Invoke(suspectData);
+        }
+
+        public void UpdateStatus(Verdict verdict)
+        {
+            if (statusLabel == null) return;
+
+            statusLabel.text = verdict.ToString().ToUpper();
+            
+            statusLabel.RemoveFromClassList("status-positive");
+            statusLabel.RemoveFromClassList("status-negative");
+            statusLabel.RemoveFromClassList("status-unsure");
+
+            switch (verdict)
+            {
+                case Verdict.Positive:
+                    statusLabel.AddToClassList("status-positive");
+                    break;
+                case Verdict.Negative:
+                    statusLabel.AddToClassList("status-negative");
+                    break;
+                case Verdict.Unsure:
+                default:
+                    statusLabel.AddToClassList("status-unsure");
+                    break;
+            }
+        }
+
+        public void Cleanup()
+        {
+            this.UnregisterCallback<ClickEvent>(OnElementClicked);
         }
     }
 }
