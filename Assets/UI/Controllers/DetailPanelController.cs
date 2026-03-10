@@ -33,8 +33,15 @@ namespace InvestigationGame.UI
 
         public DetailPanelController(VisualElement root, System.Action<SuspectData, Verdict> onVerdict)
         {
-            panelRoot = root;
             this.onVerdictSubmitted = onVerdict;
+            SetRoot(root);
+        }
+
+        public void SetRoot(VisualElement root)
+        {
+            Cleanup(); // Unregister from old elements
+
+            panelRoot = root;
 
             // Query elements
             nameLabel = panelRoot.Q<Label>("DetailNameLabel");
@@ -52,10 +59,6 @@ namespace InvestigationGame.UI
             unsureBtn = panelRoot.Q<Button>("VerdictUnsureBtn");
             urineTestStamp = panelRoot.Q<VisualElement>("UrineTestStamp");
 
-            // Query expanded image overlay elements (assuming they are in the root scope or a parent scope)
-            var uiDocument = panelRoot.parent?.parent; // Navigate up to find the document root if necessary, or pass it in. 
-            // In our case, the DetailPanel and ExpandedImageOverlay are siblings under the main-container.
-            // Let's try querying from the panelRoot's parent.
             var mainContainer = panelRoot.parent;
             if (mainContainer != null)
             {
@@ -65,42 +68,54 @@ namespace InvestigationGame.UI
 
                 if (expandedImageCloseBtn != null)
                 {
-                    expandedImageCloseBtn.clicked += HideExpandedImage;
+                    expandedImageCloseBtn.RegisterCallback<ClickEvent>(OnExpandedImageCloseClick);
                 }
             }
 
             // Register events
-            closeBtn.clicked += Hide;
-            urineTestBtn.clicked += OnUrineTestClicked; 
+            if (closeBtn != null) closeBtn.RegisterCallback<ClickEvent>(OnCloseClick);
+            if (urineTestBtn != null) urineTestBtn.RegisterCallback<ClickEvent>(OnUrineTestClick); 
 
-            positiveBtn.clicked += () => SubmitVerdict(Verdict.Positive);
-            negativeBtn.clicked += () => SubmitVerdict(Verdict.Negative);
-            unsureBtn.clicked += () => SubmitVerdict(Verdict.Unsure);
+            if (positiveBtn != null) positiveBtn.RegisterCallback<ClickEvent>(OnPositiveClick);
+            if (negativeBtn != null) negativeBtn.RegisterCallback<ClickEvent>(OnNegativeClick);
+            if (unsureBtn != null) unsureBtn.RegisterCallback<ClickEvent>(OnUnsureClick);
 
             // Thumbnail Click Events
-            if (physicalThumbnail != null)
-            {
-                physicalThumbnail.RegisterCallback<ClickEvent>(evt =>
-                {
-                    if (currentSuspect?.PhysicalCharacteristics.Image != null)
-                    {
-                        ShowExpandedImage(currentSuspect.PhysicalCharacteristics.Image);
-                    }
-                });
-            }
-
-            if (behaviorThumbnail != null)
-            {
-                behaviorThumbnail.RegisterCallback<ClickEvent>(evt =>
-                {
-                    if (currentSuspect?.Behavior.Image != null)
-                    {
-                        ShowExpandedImage(currentSuspect.Behavior.Image);
-                    }
-                });
-            }
+            if (physicalThumbnail != null) physicalThumbnail.RegisterCallback<ClickEvent>(OnPhysicalThumbnailClick);
+            if (behaviorThumbnail != null) behaviorThumbnail.RegisterCallback<ClickEvent>(OnBehaviorThumbnailClick);
 
             Hide(); // Hidden by default
+        }
+
+        public void Cleanup()
+        {
+            if (closeBtn != null) closeBtn.UnregisterCallback<ClickEvent>(OnCloseClick);
+            if (urineTestBtn != null) urineTestBtn.UnregisterCallback<ClickEvent>(OnUrineTestClick);
+            if (positiveBtn != null) positiveBtn.UnregisterCallback<ClickEvent>(OnPositiveClick);
+            if (negativeBtn != null) negativeBtn.UnregisterCallback<ClickEvent>(OnNegativeClick);
+            if (unsureBtn != null) unsureBtn.UnregisterCallback<ClickEvent>(OnUnsureClick);
+            if (physicalThumbnail != null) physicalThumbnail.UnregisterCallback<ClickEvent>(OnPhysicalThumbnailClick);
+            if (behaviorThumbnail != null) behaviorThumbnail.UnregisterCallback<ClickEvent>(OnBehaviorThumbnailClick);
+            if (expandedImageCloseBtn != null) expandedImageCloseBtn.UnregisterCallback<ClickEvent>(OnExpandedImageCloseClick);
+        }
+
+        private void OnCloseClick(ClickEvent evt) => Hide();
+        private void OnUrineTestClick(ClickEvent evt) => OnUrineTestClicked();
+        private void OnPositiveClick(ClickEvent evt) => SubmitVerdict(Verdict.Positive);
+        private void OnNegativeClick(ClickEvent evt) => SubmitVerdict(Verdict.Negative);
+        private void OnUnsureClick(ClickEvent evt) => SubmitVerdict(Verdict.Unsure);
+        private void OnExpandedImageCloseClick(ClickEvent evt) => HideExpandedImage();
+        
+        private void OnPhysicalThumbnailClick(ClickEvent evt)
+        {
+            if (currentSuspect?.PhysicalCharacteristics.Image != null)
+                ShowExpandedImage(currentSuspect.PhysicalCharacteristics.Image);
+        }
+        
+        private void OnBehaviorThumbnailClick(ClickEvent evt)
+        {
+            if (currentSuspect?.Behavior.Image != null)
+                ShowExpandedImage(currentSuspect.Behavior.Image);
         }
 
         public void Show(SuspectData suspect)
@@ -108,10 +123,10 @@ namespace InvestigationGame.UI
             currentSuspect = suspect;
 
             // Populate data
-            nameLabel.text = suspect.SuspectName;
-            physicalText.text = suspect.PhysicalCharacteristics.Description;
-            behaviorText.text = suspect.Behavior.Description;
-            rumorsText.text = suspect.Rumors;
+            if (nameLabel != null) nameLabel.text = suspect.SuspectName;
+            if (physicalText != null) physicalText.text = suspect.PhysicalCharacteristics.Description;
+            if (behaviorText != null) behaviorText.text = suspect.Behavior.Description;
+            if (rumorsText != null) rumorsText.text = suspect.Rumors;
 
             // Handle Thumbnails
             if (physicalThumbnail != null)
@@ -140,7 +155,7 @@ namespace InvestigationGame.UI
                 }
             }
 
-            if (suspect.PolaroidSprite != null)
+            if (detailImage != null && suspect.PolaroidSprite != null)
             {
                 detailImage.style.backgroundImage = new StyleBackground(suspect.PolaroidSprite);
             }
@@ -164,12 +179,12 @@ namespace InvestigationGame.UI
                 urineTestStamp.style.display = DisplayStyle.None;
             }
 
-            panelRoot.style.display = DisplayStyle.Flex; // Show
+            if (panelRoot != null) panelRoot.style.display = DisplayStyle.Flex; // Show
         }
 
         public void Hide()
         {
-            panelRoot.style.display = DisplayStyle.None; // Hide
+            if (panelRoot != null) panelRoot.style.display = DisplayStyle.None; // Hide
             currentSuspect = null;
             if (urineTestStamp != null)
             {
@@ -181,9 +196,6 @@ namespace InvestigationGame.UI
         {
             if (InvestigationManager.Instance != null && InvestigationManager.Instance.UseUrineTest())
             {
-                // Uncover the truth
-                Debug.Log($"Urine test used on {currentSuspect.SuspectName}! Truth: {(currentSuspect.IsUser ? "Positive" : "Negative")}");
-
                 currentSuspect.hasBeenTested = true;
 
                 if (urineTestStamp != null)
@@ -204,7 +216,8 @@ namespace InvestigationGame.UI
 
         private void UpdateUrineTestButtonState()
         {
-            urineTestBtn.style.display = DisplayStyle.Flex; // Always keep it in layout
+            if (urineTestBtn == null) return;
+            // Removed urineTestBtn.style.display = DisplayStyle.Flex; which might override flex styling from uxml
 
             if (InvestigationManager.Instance != null && InvestigationManager.Instance.HasUsedUrineTest)
             {
@@ -214,7 +227,7 @@ namespace InvestigationGame.UI
             else
             {
                 urineTestBtn.SetEnabled(true);
-                urineTestBtn.text = "Use Urine Test (1x)";
+                urineTestBtn.text = "Gunakan tes urin (1x)"; // Localized back
             }
         }
 
