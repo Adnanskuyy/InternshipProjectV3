@@ -47,7 +47,7 @@ namespace InvestigationGame.Core
 
             if (masterSuspectPool == null || masterSuspectPool.Count == 0)
             {
-                Debug.LogError("Master suspect pool is empty!");
+                Debug.LogError("Kolam tersangka utama kosong!");
                 return;
             }
 
@@ -59,7 +59,7 @@ namespace InvestigationGame.Core
             }
             else
             {
-                Debug.LogError("GameUIController is not assigned in InvestigationManager!");
+                Debug.LogError("GameUIController tidak terpasang di InvestigationManager!");
             }
         }
 
@@ -67,7 +67,7 @@ namespace InvestigationGame.Core
         {
             if (HasUsedUrineTest)
             {
-                Debug.LogWarning("Urine test already used!");
+                Debug.LogWarning("Tes urin sudah digunakan!");
                 return false;
             }
             
@@ -77,7 +77,7 @@ namespace InvestigationGame.Core
 
         public void SubmitVerdict(SuspectData suspect, Verdict verdict)
         {
-            Debug.Log($"Verdict for {suspect.SuspectName} submitted: {verdict}");
+            Debug.Log($"Keputusan untuk {suspect.SuspectName} dikirim: {verdict}");
         }
 
         public void CompleteInvestigation(Dictionary<SuspectData, Verdict> verdicts)

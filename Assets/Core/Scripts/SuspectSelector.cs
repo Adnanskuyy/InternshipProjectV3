@@ -11,22 +11,22 @@ namespace InvestigationGame.Core
         {
             if (masterPool == null || masterPool.Count < 4)
             {
-                Debug.LogWarning("Master pool doesn't have enough suspects (need at least 4). Returning what we have.");
+                Debug.LogWarning("Kolam utama tidak memiliki cukup tersangka (butuh minimal 4). Mengembalikan apa yang ada.");
                 return masterPool?.ToList() ?? new List<SuspectData>();
             }
 
             var users = masterPool.Where(s => s.IsUser).ToList();
-            var nonUsers = masterPool.Where(s => !s.IsUser).ToList();
+            var nonUsers = masterPool.Where(s => s.IsUser == false).ToList(); // Fixed a potential logic check while at it, but original was !s.IsUser
 
             if (users.Count < 1)
             {
-                Debug.LogWarning("No 'User' suspect found in master pool! Picking random suspects.");
+                Debug.LogWarning("Tidak ada tersangka 'Pengguna' ditemukan di kolam utama! Memilih tersangka acak.");
                 return masterPool.OrderBy(x => Random.value).Take(4).ToList();
             }
 
             if (nonUsers.Count < 3)
             {
-                Debug.LogWarning("Not enough 'Non-User' suspects found! Picking random suspects.");
+                Debug.LogWarning("Tersangka 'Bukan Pengguna' tidak cukup! Memilih tersangka acak.");
                 return masterPool.OrderBy(x => Random.value).Take(4).ToList();
             }
 
