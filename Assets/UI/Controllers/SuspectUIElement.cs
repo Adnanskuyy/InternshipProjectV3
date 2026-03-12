@@ -54,7 +54,14 @@ namespace InvestigationGame.UI
         {
             if (statusLabel == null) return;
 
-            statusLabel.text = verdict.ToString().ToUpper();
+            string statusText = "RAGU-RAGU";
+            switch (verdict)
+            {
+                case Verdict.Positive: statusText = "POSITIF"; break;
+                case Verdict.Negative: statusText = "NEGATIF"; break;
+                case Verdict.Unsure: statusText = "RAGU-RAGU"; break;
+            }
+            statusLabel.text = statusText;
             
             statusLabel.RemoveFromClassList("status-positive");
             statusLabel.RemoveFromClassList("status-negative");

@@ -171,7 +171,7 @@ namespace InvestigationGame.UI
                 var stampLabel = urineTestStamp.Q<Label>("UrineTestStampLabel");
                 if (stampLabel != null)
                 {
-                    stampLabel.text = currentSuspect.IsUser ? "TEST RESULT: POSITIVE" : "TEST RESULT: NEGATIVE";
+                    stampLabel.text = currentSuspect.IsUser ? "HASIL TES: POSITIF" : "HASIL TES: NEGATIF";
                 }
             }
             else if (urineTestStamp != null)
@@ -206,7 +206,7 @@ namespace InvestigationGame.UI
                     var stampLabel = urineTestStamp.Q<Label>("UrineTestStampLabel");
                     if (stampLabel != null)
                     {
-                        stampLabel.text = currentSuspect.IsUser ? "TEST RESULT: POSITIVE" : "TEST RESULT: NEGATIVE";
+                        stampLabel.text = currentSuspect.IsUser ? "HASIL TES: POSITIF" : "HASIL TES: NEGATIF";
                     }
                 }
 
@@ -222,7 +222,7 @@ namespace InvestigationGame.UI
             if (InvestigationManager.Instance != null && InvestigationManager.Instance.HasUsedUrineTest)
             {
                 urineTestBtn.SetEnabled(false);
-                urineTestBtn.text = "Urine Test (Used)";
+                urineTestBtn.text = "Tes Urin (Sudah Digunakan)";
             }
             else
             {
