@@ -14,6 +14,9 @@ namespace Core.Scripts
         [SerializeField] private string nextSceneName = "InvestigationScene";
 
         private const string HasPlayedKey = "HasPlayedIntro";
+        
+        // Set this to true from other scripts before loading IntroScene to force a replay
+        public static bool ForceReplay = false;
 
         private void Awake()
         {
@@ -47,14 +50,15 @@ namespace Core.Scripts
             // For testing purposes, uncomment to always play the video
             // PlayerPrefs.DeleteKey(HasPlayedKey);
 
-            if (PlayerPrefs.GetInt(HasPlayedKey, 0) == 1)
+            if (!ForceReplay && PlayerPrefs.GetInt(HasPlayedKey, 0) == 1)
             {
-                // Already played, skip to next scene immediately
+                // Already played and not forcing replay, skip to next scene immediately
                 LoadNextScene();
             }
             else
             {
-                // First time, play video
+                // First time or forced replay, play video
+                ForceReplay = false; // Reset the flag
                 videoPlayer.loopPointReached += OnVideoFinished;
                 videoPlayer.Prepare();
                 videoPlayer.prepareCompleted += (vp) => vp.Play();

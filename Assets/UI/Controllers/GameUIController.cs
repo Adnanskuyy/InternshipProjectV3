@@ -113,7 +113,12 @@ namespace InvestigationGame.UI
 
         private void OnFinalSubmitClick(ClickEvent evt) => OnFinalSubmit();
         private void OnPlayAgainClick(ClickEvent evt) => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        private void OnHelpClick(ClickEvent evt) => TutorialManager?.TryStartTutorial(forceStart: true);
+        private void OnHelpClick(ClickEvent evt)
+        {
+            // Replay the intro video instead of the tutorial overlay
+            global::Core.Scripts.IntroVideoManager.ForceReplay = true;
+            SceneManager.LoadScene("IntroScene");
+        }
 
         public void InitializeUI(List<SuspectData> selectedSuspects)
         {
