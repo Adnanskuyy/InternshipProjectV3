@@ -202,7 +202,7 @@ namespace InvestigationGame.UI
 
             if (resultLabel != null)
             {
-                resultLabel.text = result.IsSuccess ? "SUCCESS: You found the user!" : "FAILED: The user slipped away...";
+                resultLabel.text = result.IsSuccess ? "BERHASIL: Anda menemukan penggunanya!" : "GAGAL: Penggunanya lolos...";
                 resultLabel.RemoveFromClassList("result-success");
                 resultLabel.RemoveFromClassList("result-failure");
                 resultLabel.AddToClassList(result.IsSuccess ? "result-success" : "result-failure");
@@ -219,7 +219,7 @@ namespace InvestigationGame.UI
                     var nameLabel = new Label(detail.Suspect.SuspectName);
                     nameLabel.AddToClassList("suspect-result-name");
 
-                    var statusLabel = new Label(detail.IsCorrect ? "CORRECT" : "WRONG");
+                    var statusLabel = new Label(detail.IsCorrect ? "BENAR" : "SALAH");
                     statusLabel.AddToClassList("suspect-result-status");
                     statusLabel.style.color = detail.IsCorrect ? new StyleColor(new Color(0.2f, 0.8f, 0.2f)) : new StyleColor(new Color(0.8f, 0.2f, 0.2f));
 
