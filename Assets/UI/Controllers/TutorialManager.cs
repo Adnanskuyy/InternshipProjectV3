@@ -218,7 +218,7 @@ namespace InvestigationGame.UI
                     break;
                 case 4:
                     titleLabel.text = "KEPUTUSAN";
-                    textLabel.text = "Anda harus menandai pengguna narkoba sebagai 'Positif' dan yang lainnya sebagai 'Negatif'. Tandai keputusan sekarang untuk melanjutkan.";
+                    textLabel.text = "Anda harus menentukan peran setiap tersangka sebagai 'Pengedar', 'Pengguna', atau 'Orang Biasa'. Tandai keputusan sekarang untuk melanjutkan.";
                     
                     // Highlight the verdict buttons
                     var actionBar = root.Q<VisualElement>(className: "action-bar");
@@ -237,7 +237,7 @@ namespace InvestigationGame.UI
                     if (dp != null) dp.style.display = DisplayStyle.None;
 
                     titleLabel.text = "MENGIRIM LAPORAN";
-                    textLabel.text = "Setelah semua orang memiliki keputusan (Positif atau Negatif), kirim laporan Anda untuk menyelesaikan penyelidikan.";
+                    textLabel.text = "Setelah semua orang memiliki keputusan, kirim laporan Anda untuk menyelesaikan penyelidikan.";
                     
                     var finalSubmitBtn = root.Q<Button>("FinalSubmitBtn");
                     if (finalSubmitBtn != null)

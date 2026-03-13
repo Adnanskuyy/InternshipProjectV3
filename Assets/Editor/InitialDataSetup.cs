@@ -24,10 +24,10 @@ public class InitialDataSetup
             newSuspect.PhysicalCharacteristics = new EvidenceData { Description = "Looks suspicious. Sweating profusely." };
             newSuspect.Behavior = new EvidenceData { Description = "Answers questions quickly, avoids eye contact." };
             newSuspect.Rumors = "Some people say they saw him near the crime scene.";
-            newSuspect.IsUser = (i % 2 == 0); // Alternate true/false
-            
-            string assetPath = $"{path}/Suspect_{i + 1}.asset";
-            AssetDatabase.CreateAsset(newSuspect, assetPath);
+            newSuspect.Role = (i % 2 == 0) ? SuspectRole.Pengguna : SuspectRole.OrangBiasa; // Alternate true/false
+            newSuspect.UrineTestResult = (i % 2 == 0);
+
+            string assetPath = $"{path}/Suspect_{i + 1}.asset";            AssetDatabase.CreateAsset(newSuspect, assetPath);
         }
 
         AssetDatabase.SaveAssets();

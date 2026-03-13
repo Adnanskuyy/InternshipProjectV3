@@ -113,7 +113,12 @@ namespace InvestigationGame.UI
 
         private void OnFinalSubmitClick(ClickEvent evt) => OnFinalSubmit();
         private void OnPlayAgainClick(ClickEvent evt) => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        private void OnHelpClick(ClickEvent evt) => TutorialManager?.TryStartTutorial(forceStart: true);
+        private void OnHelpClick(ClickEvent evt)
+        {
+            // Replay the intro video instead of the tutorial overlay
+            global::Core.Scripts.IntroVideoManager.ForceReplay = true;
+            SceneManager.LoadScene("IntroScene");
+        }
 
         public void InitializeUI(List<SuspectData> selectedSuspects)
         {
@@ -139,7 +144,7 @@ namespace InvestigationGame.UI
                     var suspectUI = new SuspectUIElement();
                     suspectUI.Initialize(suspectTemplate, suspect, OnSuspectClicked);
                     polaroidGrid.Add(suspectUI);
-                    verdicts[suspect] = Verdict.Unsure; // Default verdict
+                    verdicts[suspect] = Verdict.None; // Default verdict
                     suspectUIElements[suspect] = suspectUI;
                 }
             }
@@ -174,8 +179,8 @@ namespace InvestigationGame.UI
         {
             if (finalSubmitBtn == null) return;
 
-            // Ensure all suspects have a verdict other than Unsure
-            bool allJudged = verdicts.Count > 0 && verdicts.Values.All(v => v != Verdict.Unsure);
+            // Ensure all suspects have a verdict other than None
+            bool allJudged = verdicts.Count > 0 && verdicts.Values.All(v => v != Verdict.None);
             finalSubmitBtn.SetEnabled(allJudged);
         }
 

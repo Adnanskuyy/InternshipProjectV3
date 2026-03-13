@@ -156,9 +156,9 @@
     background-color: rgb(200, 150, 50);
 }
 
-.btn-positive { background-color: rgb(50, 200, 50); color: white; }
-.btn-negative { background-color: rgb(200, 50, 50); color: white; }
-.btn-unsure { background-color: rgb(150, 150, 150); }
+.btn-pengedar { background-color: rgb(50, 200, 50); color: white; }
+.btn-pengguna { background-color: rgb(200, 50, 50); color: white; }
+.btn-orang-biasa { background-color: rgb(150, 150, 150); }
 
 /* Verdict Overlay Styling */
 .verdict-overlay {
@@ -367,4 +367,18 @@
 .status-positive { background-color: rgb(46, 125, 50); }
 .status-negative { background-color: rgb(198, 40, 40); }
 .status-unsure { background-color: rgb(97, 97, 97); }
+
+/* Global Button Juice Animation */
+.unity-button {
+    transition-duration: 0.1s;
+    transition-property: scale;
+}
+
+.unity-button:hover {
+    scale: 1.05;
+}
+
+.unity-button:active {
+    scale: 0.95;
+}
 

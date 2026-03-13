@@ -7,7 +7,7 @@
     <ui:VisualElement class="polaroid">
         <ui:VisualElement name="PolaroidImage" class="polaroid-image" />
         <ui:Label name="SuspectNameLabel" text="John Doe" class="polaroid-name" />
-        <ui:Label name="StatusLabel" text="RAGU-RAGU" class="polaroid-status status-unsure" />
+        <ui:Label name="StatusLabel" text="BELUM DITENTUKAN" class="polaroid-status status-unsure" />
     </ui:VisualElement>
 
 </ui:UXML>

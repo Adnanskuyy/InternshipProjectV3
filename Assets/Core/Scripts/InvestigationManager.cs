@@ -83,8 +83,7 @@ namespace InvestigationGame.Core
         public void CompleteInvestigation(Dictionary<SuspectData, Verdict> verdicts)
         {
             var result = new InvestigationResult();
-            int positiveCount = 0;
-            bool foundRealUser = false;
+            bool allCorrect = true;
 
             foreach (var kvp in verdicts)
             {
@@ -92,21 +91,31 @@ namespace InvestigationGame.Core
                 var verdict = kvp.Value;
 
                 bool isCorrect = false;
-                if (verdict == Verdict.Positive)
+                if (verdict == Verdict.Pengguna)
                 {
-                    positiveCount++;
-                    if (suspect.IsUser)
+                    if (suspect.Role == SuspectRole.Pengguna)
                     {
-                        foundRealUser = true;
                         isCorrect = true;
                     }
                 }
-                else if (verdict == Verdict.Negative)
+                else if (verdict == Verdict.OrangBiasa)
                 {
-                    if (!suspect.IsUser)
+                    if (suspect.Role == SuspectRole.OrangBiasa)
                     {
                         isCorrect = true;
                     }
+                }
+                else if (verdict == Verdict.Pengedar)
+                {
+                    if (suspect.Role == SuspectRole.Pengedar)
+                    {
+                        isCorrect = true;
+                    }
+                }
+
+                if (!isCorrect)
+                {
+                    allCorrect = false;
                 }
 
                 result.Details.Add(new SuspectResult
@@ -117,8 +126,7 @@ namespace InvestigationGame.Core
                 });
             }
 
-            // Success if exactly one positive and it's the real user
-            result.IsSuccess = (positiveCount == 1 && foundRealUser);
+            result.IsSuccess = allCorrect;
 
             OnInvestigationComplete?.Invoke(result);
         }
@@ -126,8 +134,9 @@ namespace InvestigationGame.Core
 
     public enum Verdict
     {
-        Unsure,
-        Positive,
-        Negative
+        None,
+        Pengedar,
+        Pengguna,
+        OrangBiasa
     }
 }
