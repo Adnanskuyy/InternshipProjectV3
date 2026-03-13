@@ -55,9 +55,9 @@
 
                 <ui:VisualElement class="action-bar">
                     <ui:VisualElement name="UrineTestStamp" class="stamp-image" style="display: none; width: 200px; height: 100px; position: absolute; top: 20px; right: 20px; background-color: rgba(255, 0, 0, 0.5);" />
-                    <ui:Button name="VerdictPositiveBtn" text="Verdict: Positive" class="action-btn btn-positive" />
-                    <ui:Button name="VerdictNegativeBtn" text="Verdict: Negative" class="action-btn btn-negative" />
-                    <ui:Button name="VerdictUnsureBtn" text="Verdict: Unsure" class="action-btn btn-unsure" />
+                    <ui:Button name="VerdictPengedarBtn" text="Verdict: Pengedar" class="action-btn btn-pengedar" />
+                    <ui:Button name="VerdictPenggunaBtn" text="Verdict: Pengguna" class="action-btn btn-pengguna" />
+                    <ui:Button name="VerdictOrangBiasaBtn" text="Verdict: Orang Biasa" class="action-btn btn-orang-biasa" />
                 </ui:VisualElement>
             </ui:VisualElement>
             

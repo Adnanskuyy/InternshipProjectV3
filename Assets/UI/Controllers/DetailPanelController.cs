@@ -18,9 +18,9 @@ namespace InvestigationGame.UI
 
         private Button closeBtn;
         private Button urineTestBtn;
-        private Button positiveBtn;
-        private Button negativeBtn;
-        private Button unsureBtn;
+        private Button pengedarBtn;
+        private Button penggunaBtn;
+        private Button orangBiasaBtn;
         private VisualElement urineTestStamp;
 
         // Expanded Image Overlay Elements
@@ -54,9 +54,9 @@ namespace InvestigationGame.UI
 
             closeBtn = panelRoot.Q<Button>("CloseDetailBtn");
             urineTestBtn = panelRoot.Q<Button>("UrineTestBtn");
-            positiveBtn = panelRoot.Q<Button>("VerdictPositiveBtn");
-            negativeBtn = panelRoot.Q<Button>("VerdictNegativeBtn");
-            unsureBtn = panelRoot.Q<Button>("VerdictUnsureBtn");
+            pengedarBtn = panelRoot.Q<Button>("VerdictPengedarBtn");
+            penggunaBtn = panelRoot.Q<Button>("VerdictPenggunaBtn");
+            orangBiasaBtn = panelRoot.Q<Button>("VerdictOrangBiasaBtn");
             urineTestStamp = panelRoot.Q<VisualElement>("UrineTestStamp");
 
             var mainContainer = panelRoot.parent;
@@ -76,9 +76,9 @@ namespace InvestigationGame.UI
             if (closeBtn != null) closeBtn.RegisterCallback<ClickEvent>(OnCloseClick);
             if (urineTestBtn != null) urineTestBtn.RegisterCallback<ClickEvent>(OnUrineTestClick); 
 
-            if (positiveBtn != null) positiveBtn.RegisterCallback<ClickEvent>(OnPositiveClick);
-            if (negativeBtn != null) negativeBtn.RegisterCallback<ClickEvent>(OnNegativeClick);
-            if (unsureBtn != null) unsureBtn.RegisterCallback<ClickEvent>(OnUnsureClick);
+            if (pengedarBtn != null) pengedarBtn.RegisterCallback<ClickEvent>(OnPengedarClick);
+            if (penggunaBtn != null) penggunaBtn.RegisterCallback<ClickEvent>(OnPenggunaClick);
+            if (orangBiasaBtn != null) orangBiasaBtn.RegisterCallback<ClickEvent>(OnOrangBiasaClick);
 
             // Thumbnail Click Events
             if (physicalThumbnail != null) physicalThumbnail.RegisterCallback<ClickEvent>(OnPhysicalThumbnailClick);
@@ -91,9 +91,9 @@ namespace InvestigationGame.UI
         {
             if (closeBtn != null) closeBtn.UnregisterCallback<ClickEvent>(OnCloseClick);
             if (urineTestBtn != null) urineTestBtn.UnregisterCallback<ClickEvent>(OnUrineTestClick);
-            if (positiveBtn != null) positiveBtn.UnregisterCallback<ClickEvent>(OnPositiveClick);
-            if (negativeBtn != null) negativeBtn.UnregisterCallback<ClickEvent>(OnNegativeClick);
-            if (unsureBtn != null) unsureBtn.UnregisterCallback<ClickEvent>(OnUnsureClick);
+            if (pengedarBtn != null) pengedarBtn.UnregisterCallback<ClickEvent>(OnPengedarClick);
+            if (penggunaBtn != null) penggunaBtn.UnregisterCallback<ClickEvent>(OnPenggunaClick);
+            if (orangBiasaBtn != null) orangBiasaBtn.UnregisterCallback<ClickEvent>(OnOrangBiasaClick);
             if (physicalThumbnail != null) physicalThumbnail.UnregisterCallback<ClickEvent>(OnPhysicalThumbnailClick);
             if (behaviorThumbnail != null) behaviorThumbnail.UnregisterCallback<ClickEvent>(OnBehaviorThumbnailClick);
             if (expandedImageCloseBtn != null) expandedImageCloseBtn.UnregisterCallback<ClickEvent>(OnExpandedImageCloseClick);
@@ -101,9 +101,9 @@ namespace InvestigationGame.UI
 
         private void OnCloseClick(ClickEvent evt) => Hide();
         private void OnUrineTestClick(ClickEvent evt) => OnUrineTestClicked();
-        private void OnPositiveClick(ClickEvent evt) => SubmitVerdict(Verdict.Positive);
-        private void OnNegativeClick(ClickEvent evt) => SubmitVerdict(Verdict.Negative);
-        private void OnUnsureClick(ClickEvent evt) => SubmitVerdict(Verdict.Unsure);
+        private void OnPengedarClick(ClickEvent evt) => SubmitVerdict(Verdict.Pengedar);
+        private void OnPenggunaClick(ClickEvent evt) => SubmitVerdict(Verdict.Pengguna);
+        private void OnOrangBiasaClick(ClickEvent evt) => SubmitVerdict(Verdict.OrangBiasa);
         private void OnExpandedImageCloseClick(ClickEvent evt) => HideExpandedImage();
         
         private void OnPhysicalThumbnailClick(ClickEvent evt)
@@ -167,11 +167,11 @@ namespace InvestigationGame.UI
             if (currentSuspect.hasBeenTested && urineTestStamp != null)
             {
                 urineTestStamp.style.display = DisplayStyle.Flex;
-                urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.green) : new StyleColor(Color.red);
+                urineTestStamp.style.backgroundColor = currentSuspect.UrineTestResult ? new StyleColor(Color.green) : new StyleColor(Color.red);
                 var stampLabel = urineTestStamp.Q<Label>("UrineTestStampLabel");
                 if (stampLabel != null)
                 {
-                    stampLabel.text = currentSuspect.IsUser ? "TEST RESULT: POSITIVE" : "TEST RESULT: NEGATIVE";
+                    stampLabel.text = currentSuspect.UrineTestResult ? "TEST RESULT: POSITIVE" : "TEST RESULT: NEGATIVE";
                 }
             }
             else if (urineTestStamp != null)
@@ -201,12 +201,12 @@ namespace InvestigationGame.UI
                 if (urineTestStamp != null)
                 {
                     urineTestStamp.style.display = DisplayStyle.Flex;
-                    urineTestStamp.style.backgroundColor = currentSuspect.IsUser ? new StyleColor(Color.green) : new StyleColor(Color.red);
+                    urineTestStamp.style.backgroundColor = currentSuspect.UrineTestResult ? new StyleColor(Color.green) : new StyleColor(Color.red);
 
                     var stampLabel = urineTestStamp.Q<Label>("UrineTestStampLabel");
                     if (stampLabel != null)
                     {
-                        stampLabel.text = currentSuspect.IsUser ? "TEST RESULT: POSITIVE" : "TEST RESULT: NEGATIVE";
+                        stampLabel.text = currentSuspect.UrineTestResult ? "TEST RESULT: POSITIVE" : "TEST RESULT: NEGATIVE";
                     }
                 }
 

@@ -144,7 +144,7 @@ namespace InvestigationGame.UI
                     var suspectUI = new SuspectUIElement();
                     suspectUI.Initialize(suspectTemplate, suspect, OnSuspectClicked);
                     polaroidGrid.Add(suspectUI);
-                    verdicts[suspect] = Verdict.Unsure; // Default verdict
+                    verdicts[suspect] = Verdict.None; // Default verdict
                     suspectUIElements[suspect] = suspectUI;
                 }
             }
@@ -179,8 +179,8 @@ namespace InvestigationGame.UI
         {
             if (finalSubmitBtn == null) return;
 
-            // Ensure all suspects have a verdict other than Unsure
-            bool allJudged = verdicts.Count > 0 && verdicts.Values.All(v => v != Verdict.Unsure);
+            // Ensure all suspects have a verdict other than None
+            bool allJudged = verdicts.Count > 0 && verdicts.Values.All(v => v != Verdict.None);
             finalSubmitBtn.SetEnabled(allJudged);
         }
 

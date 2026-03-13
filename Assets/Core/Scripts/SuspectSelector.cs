@@ -15,27 +15,27 @@ namespace InvestigationGame.Core
                 return masterPool?.ToList() ?? new List<SuspectData>();
             }
 
-            var users = masterPool.Where(s => s.IsUser).ToList();
-            var nonUsers = masterPool.Where(s => !s.IsUser).ToList();
+            var culprits = masterPool.Where(s => s.Role != SuspectRole.OrangBiasa).ToList();
+            var innocents = masterPool.Where(s => s.Role == SuspectRole.OrangBiasa).ToList();
 
-            if (users.Count < 1)
+            if (culprits.Count < 1)
             {
-                Debug.LogWarning("No 'User' suspect found in master pool! Picking random suspects.");
+                Debug.LogWarning("No 'Culprit' (Pengguna/Pengedar) suspect found in master pool! Picking random suspects.");
                 return masterPool.OrderBy(x => Random.value).Take(4).ToList();
             }
 
-            if (nonUsers.Count < 3)
+            if (innocents.Count < 3)
             {
-                Debug.LogWarning("Not enough 'Non-User' suspects found! Picking random suspects.");
+                Debug.LogWarning("Not enough 'Orang Biasa' suspects found! Picking random suspects.");
                 return masterPool.OrderBy(x => Random.value).Take(4).ToList();
             }
 
-            var selectedUsers = users.OrderBy(x => Random.value).Take(1).ToList();
-            var selectedNonUsers = nonUsers.OrderBy(x => Random.value).Take(3).ToList();
+            var selectedCulprits = culprits.OrderBy(x => Random.value).Take(1).ToList();
+            var selectedInnocents = innocents.OrderBy(x => Random.value).Take(3).ToList();
 
             var combined = new List<SuspectData>();
-            combined.AddRange(selectedUsers);
-            combined.AddRange(selectedNonUsers);
+            combined.AddRange(selectedCulprits);
+            combined.AddRange(selectedInnocents);
 
             // Shuffle
             return combined.OrderBy(x => Random.value).ToList();

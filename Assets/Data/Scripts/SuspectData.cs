@@ -2,6 +2,13 @@ using UnityEngine;
 
 namespace InvestigationGame.Data
 {
+    public enum SuspectRole
+    {
+        OrangBiasa,
+        Pengguna,
+        Pengedar
+    }
+
     [System.Serializable]
     public struct EvidenceData
     {
@@ -26,7 +33,9 @@ namespace InvestigationGame.Data
         public string Rumors;
 
         [Header("Truth")]
-        public bool IsUser;
+        public SuspectRole Role;
+        [Tooltip("True for Positive, False for Negative")]
+        public bool UrineTestResult;
 
         [Header("Runtime State")]
         [HideInInspector]

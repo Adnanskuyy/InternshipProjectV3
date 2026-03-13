@@ -83,10 +83,10 @@ public class SceneSetupUtility
             SuspectData newData = ScriptableObject.CreateInstance<SuspectData>();
             newData.SuspectName = names[i];
             newData.Rumors = $"I heard {names[i]} has been acting very strange lately...";
-            newData.IsUser = (i == 1); // Bob is the culprit
-            
-            newData.PhysicalCharacteristics = new EvidenceData { Description = "Dilated pupils, jittery movements." };
-            newData.Behavior = new EvidenceData { Description = "Arrived late to work, avoiding eye contact." };
+            newData.Role = (i == 1) ? SuspectRole.Pengguna : SuspectRole.OrangBiasa; // Bob is the culprit
+            newData.UrineTestResult = (i == 1); // Only the user has a positive urine test here
+
+            newData.PhysicalCharacteristics = new EvidenceData { Description = "Dilated pupils, jittery movements." };            newData.Behavior = new EvidenceData { Description = "Arrived late to work, avoiding eye contact." };
             
             AssetDatabase.CreateAsset(newData, assetPath);
             generated.Add(newData);

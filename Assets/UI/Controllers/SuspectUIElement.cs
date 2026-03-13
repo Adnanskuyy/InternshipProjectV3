@@ -42,7 +42,7 @@ namespace InvestigationGame.UI
             // Register click event using standard RegisterCallback for Unity 6 consistency
             this.RegisterCallback<ClickEvent>(OnElementClicked);
 
-            UpdateStatus(Verdict.Unsure);
+            UpdateStatus(Verdict.None);
         }
 
         private void OnElementClicked(ClickEvent evt)
@@ -54,7 +54,18 @@ namespace InvestigationGame.UI
         {
             if (statusLabel == null) return;
 
-            statusLabel.text = verdict.ToString().ToUpper();
+            if (verdict == Verdict.None)
+            {
+                statusLabel.text = "BELUM DITENTUKAN";
+            }
+            else if (verdict == Verdict.OrangBiasa)
+            {
+                statusLabel.text = "ORANG BIASA";
+            }
+            else
+            {
+                statusLabel.text = verdict.ToString().ToUpper();
+            }
             
             statusLabel.RemoveFromClassList("status-positive");
             statusLabel.RemoveFromClassList("status-negative");
@@ -62,13 +73,16 @@ namespace InvestigationGame.UI
 
             switch (verdict)
             {
-                case Verdict.Positive:
+                case Verdict.Pengedar:
                     statusLabel.AddToClassList("status-positive");
                     break;
-                case Verdict.Negative:
+                case Verdict.Pengguna:
                     statusLabel.AddToClassList("status-negative");
                     break;
-                case Verdict.Unsure:
+                case Verdict.OrangBiasa:
+                    statusLabel.AddToClassList("status-unsure"); // Keeping CSS names for now, mapping them
+                    break;
+                case Verdict.None:
                 default:
                     statusLabel.AddToClassList("status-unsure");
                     break;
