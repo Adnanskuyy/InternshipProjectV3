@@ -24,5 +24,6 @@ MonoBehaviour:
     Image: {fileID: 0}
   Rumors: Tetangga sering mendengar suara gaduh dari rumahnya pada jam-jam ganjil,
     dan ia sering terlihat menggadaikan barang-barang pribadi yang berharga.
-  IsUser: 1
+  Role: 1
+  UrineTestResult: 1
   hasBeenTested: 0

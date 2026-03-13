@@ -24,5 +24,6 @@ MonoBehaviour:
   Rumors: Karena kebiasaan menggosok hidung dan energinya yang meluap-luap, banyak
     yang berbisik bahwa ia menggunakan stimulan untuk menjaga staminanya sepanjang
     hari.
-  IsUser: 0
+  Role: 2
+  UrineTestResult: 1
   hasBeenTested: 0
