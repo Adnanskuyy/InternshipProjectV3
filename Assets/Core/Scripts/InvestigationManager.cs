@@ -29,6 +29,7 @@ namespace InvestigationGame.Core
 
         [SerializeField] private List<SuspectData> masterSuspectPool;
         [SerializeField] private GameUIController uiController;
+        [SerializeField] private GameSettings gameSettings;
 
         private void Awake()
         {
@@ -51,7 +52,21 @@ namespace InvestigationGame.Core
                 return;
             }
 
-            var selectedSuspects = SuspectSelector.PickSuspects(masterSuspectPool);
+            int culpritCount = 1;
+            int innocentCount = 3;
+
+            if (gameSettings != null && GameProgressManager.Instance != null)
+            {
+                int currentLevelIndex = GameProgressManager.Instance.CurrentLevelToPlay;
+                if (currentLevelIndex >= 0 && currentLevelIndex < gameSettings.Levels.Count)
+                {
+                    var config = gameSettings.Levels[currentLevelIndex];
+                    culpritCount = config.CulpritsCount;
+                    innocentCount = config.TotalSuspects - config.CulpritsCount;
+                }
+            }
+
+            var selectedSuspects = SuspectSelector.PickSuspects(masterSuspectPool, culpritCount, innocentCount);
 
             if (uiController != null)
             {

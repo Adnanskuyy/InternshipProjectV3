@@ -9,6 +9,7 @@ namespace InvestigationGame.UI
 {
     public class TutorialManager
     {
+        public static bool ForceTutorialNextLoad = false;
         private VisualElement tutorialOverlay;
         private VisualElement highlightBox;
         private VisualElement dialogPanel;
@@ -107,8 +108,9 @@ namespace InvestigationGame.UI
 
             bool hasCompleted = PlayerPrefs.GetInt(TUTORIAL_PREF_KEY, 0) == 1;
 
-            if (!hasCompleted || forceStart)
+            if (!hasCompleted || forceStart || ForceTutorialNextLoad)
             {
+                ForceTutorialNextLoad = false;
                 StartTutorial();
             }
         }
@@ -129,7 +131,7 @@ namespace InvestigationGame.UI
             ShowStep(currentStep);
         }
 
-        private void EndTutorial()
+        public void EndTutorial()
         {
             isTutorialActive = false;
             if (tutorialOverlay != null)

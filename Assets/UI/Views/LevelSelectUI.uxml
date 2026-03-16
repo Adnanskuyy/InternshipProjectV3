@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd">
+
+    <ui:Style src="../Styles/LevelSelectStyles.uss" />
+
+    <ui:VisualElement class="container">
+        <ui:VisualElement class="header">
+            <ui:Button name="BackBtn" text="Kembali" class="back-btn" />
+            <ui:Label text="Pilih Level" class="title" />
+        </ui:VisualElement>
+
+        <ui:ScrollView class="map-scrollview">
+            <ui:VisualElement name="MapContainer" class="map-container" />
+        </ui:ScrollView>
+    </ui:VisualElement>
+
+</ui:UXML>

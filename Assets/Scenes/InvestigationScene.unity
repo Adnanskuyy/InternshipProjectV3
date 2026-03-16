@@ -169,6 +169,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 741ffd9e1eccf7c4ba8dc094d4735518, type: 2}
   - {fileID: 11400000, guid: be0289f7d6d53a04c8332c08bcfb753a, type: 2}
   uiController: {fileID: 748145926}
+  gameSettings: {fileID: 11400000, guid: a8c4e55e44bab2c4aa5f2a80ef4cab3b, type: 2}
 --- !u!4 &748145928
 Transform:
   m_ObjectHideFlags: 0

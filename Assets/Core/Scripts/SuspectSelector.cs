@@ -7,31 +7,31 @@ namespace InvestigationGame.Core
 {
     public static class SuspectSelector
     {
-        public static List<SuspectData> PickSuspects(List<SuspectData> masterPool)
+        public static List<SuspectData> PickSuspects(List<SuspectData> masterPool, int culpritCount = 1, int innocentCount = 3)
         {
-            if (masterPool == null || masterPool.Count < 4)
+            if (masterPool == null || masterPool.Count < (culpritCount + innocentCount))
             {
-                Debug.LogWarning("Master pool doesn't have enough suspects (need at least 4). Returning what we have.");
+                Debug.LogWarning("Master pool doesn't have enough suspects. Returning what we have.");
                 return masterPool?.ToList() ?? new List<SuspectData>();
             }
 
             var culprits = masterPool.Where(s => s.Role != SuspectRole.OrangBiasa).ToList();
             var innocents = masterPool.Where(s => s.Role == SuspectRole.OrangBiasa).ToList();
 
-            if (culprits.Count < 1)
+            if (culprits.Count < culpritCount)
             {
-                Debug.LogWarning("No 'Culprit' (Pengguna/Pengedar) suspect found in master pool! Picking random suspects.");
-                return masterPool.OrderBy(x => Random.value).Take(4).ToList();
+                Debug.LogWarning("Not enough 'Culprit' suspects found in master pool! Picking random suspects.");
+                return masterPool.OrderBy(x => Random.value).Take(culpritCount + innocentCount).ToList();
             }
 
-            if (innocents.Count < 3)
+            if (innocents.Count < innocentCount)
             {
                 Debug.LogWarning("Not enough 'Orang Biasa' suspects found! Picking random suspects.");
-                return masterPool.OrderBy(x => Random.value).Take(4).ToList();
+                return masterPool.OrderBy(x => Random.value).Take(culpritCount + innocentCount).ToList();
             }
 
-            var selectedCulprits = culprits.OrderBy(x => Random.value).Take(1).ToList();
-            var selectedInnocents = innocents.OrderBy(x => Random.value).Take(3).ToList();
+            var selectedCulprits = culprits.OrderBy(x => Random.value).Take(culpritCount).ToList();
+            var selectedInnocents = innocents.OrderBy(x => Random.value).Take(innocentCount).ToList();
 
             var combined = new List<SuspectData>();
             combined.AddRange(selectedCulprits);

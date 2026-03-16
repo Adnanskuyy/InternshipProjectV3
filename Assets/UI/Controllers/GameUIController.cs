@@ -24,6 +24,7 @@ namespace InvestigationGame.UI
         private Button finalSubmitBtn;
         private VisualElement verdictOverlay;
         private Button playAgainBtn;
+        private Button mapBtn;
         private Button helpBtn;
         
         public TutorialManager TutorialManager { get; private set; }
@@ -60,6 +61,12 @@ namespace InvestigationGame.UI
                 playAgainBtn.RegisterCallback<ClickEvent>(OnPlayAgainClick);
             }
 
+            mapBtn = root.Q<Button>("MapBtn");
+            if (mapBtn != null)
+            {
+                mapBtn.RegisterCallback<ClickEvent>(OnMapClick);
+            }
+
             // Setup Tutorial
             if (TutorialManager == null)
             {
@@ -81,6 +88,7 @@ namespace InvestigationGame.UI
         {
             if (finalSubmitBtn != null) finalSubmitBtn.UnregisterCallback<ClickEvent>(OnFinalSubmitClick);
             if (playAgainBtn != null) playAgainBtn.UnregisterCallback<ClickEvent>(OnPlayAgainClick);
+            if (mapBtn != null) mapBtn.UnregisterCallback<ClickEvent>(OnMapClick);
             if (helpBtn != null) helpBtn.UnregisterCallback<ClickEvent>(OnHelpClick);
 
             if (InvestigationManager.Instance != null)
@@ -112,11 +120,22 @@ namespace InvestigationGame.UI
         }
 
         private void OnFinalSubmitClick(ClickEvent evt) => OnFinalSubmit();
-        private void OnPlayAgainClick(ClickEvent evt) => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        
+        private void OnPlayAgainClick(ClickEvent evt)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        private void OnMapClick(ClickEvent evt)
+        {
+            SceneManager.LoadScene("LevelSelectScene");
+        }
+
         private void OnHelpClick(ClickEvent evt)
         {
             // Replay the intro video instead of the tutorial overlay
             global::Core.Scripts.IntroVideoManager.ForceReplay = true;
+            InvestigationGame.UI.TutorialManager.ForceTutorialNextLoad = true;
             SceneManager.LoadScene("IntroScene");
         }
 
@@ -186,6 +205,11 @@ namespace InvestigationGame.UI
 
         private void OnFinalSubmit()
         {
+            if (finalSubmitBtn != null)
+            {
+                finalSubmitBtn.SetEnabled(false);
+            }
+
             if (InvestigationManager.Instance != null)
             {
                 InvestigationManager.Instance.CompleteInvestigation(verdicts);
@@ -194,6 +218,11 @@ namespace InvestigationGame.UI
 
         private void HandleInvestigationComplete(InvestigationResult result)
         {
+            if (TutorialManager != null)
+            {
+                TutorialManager.EndTutorial();
+            }
+
             if (verdictOverlay == null) return;
 
             var titleLabel = verdictOverlay.Q<Label>("VerdictTitle");
@@ -206,6 +235,24 @@ namespace InvestigationGame.UI
                 resultLabel.RemoveFromClassList("result-success");
                 resultLabel.RemoveFromClassList("result-failure");
                 resultLabel.AddToClassList(result.IsSuccess ? "result-success" : "result-failure");
+            }
+
+            if (playAgainBtn != null)
+            {
+                playAgainBtn.text = result.IsSuccess ? "Lanjut Level" : "Coba Lagi";
+            }
+
+            if (result.IsSuccess && GameProgressManager.Instance != null)
+            {
+                GameProgressManager.Instance.UnlockNextLevel(GameProgressManager.Instance.CurrentLevelToPlay);
+                
+                // If it's next level, we still just reload the scene, but increment the index first
+                playAgainBtn.UnregisterCallback<ClickEvent>(OnPlayAgainClick);
+                playAgainBtn.RegisterCallback<ClickEvent>(evt => 
+                {
+                    GameProgressManager.Instance.CurrentLevelToPlay++;
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                });
             }
 
             if (detailsList != null)
@@ -233,4 +280,3 @@ namespace InvestigationGame.UI
         }
     }
 }
-
