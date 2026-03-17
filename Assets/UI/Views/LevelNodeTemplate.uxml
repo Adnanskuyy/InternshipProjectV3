@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd">
+
+    <ui:VisualElement class="level-node">
+        <ui:Button name="LevelBtn" class="level-btn">
+            <ui:Label name="LevelName" text="Level 1" class="level-name" />
+        </ui:Button>
+    </ui:VisualElement>
+
+</ui:UXML>

@@ -75,6 +75,7 @@
                 </ui:ScrollView>
                 
                 <ui:Button name="PlayAgainBtn" text="MAIN LAGI" class="action-btn" style="background-color: rgb(50, 100, 200); color: white;" />
+                <ui:Button name="MapBtn" text="KEMBALI KE MAP" class="action-btn" style="background-color: rgb(100, 100, 100); color: white; margin-top: 10px;" />
             </ui:VisualElement>
         </ui:VisualElement>
 

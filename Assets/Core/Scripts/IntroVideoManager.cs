@@ -11,7 +11,7 @@ namespace Core.Scripts
     public class IntroVideoManager : MonoBehaviour
     {
         [SerializeField] private VideoPlayer videoPlayer;
-        [SerializeField] private string nextSceneName = "InvestigationScene";
+        [SerializeField] private string nextSceneName = "LevelSelectScene";
 
         private const string HasPlayedKey = "HasPlayedIntro";
         

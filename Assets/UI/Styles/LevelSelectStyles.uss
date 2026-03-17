@@ -1,0 +1,82 @@
+.container {
+    flex-grow: 1;
+    background-color: rgb(34, 34, 34);
+    padding: 20px;
+}
+
+.header {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 36px;
+    -unity-font-style: bold;
+    color: white;
+    margin-left: 20px;
+}
+
+.back-btn {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: rgb(68, 68, 68);
+    color: white;
+    border-radius: 8px;
+    border-width: 0;
+}
+
+.back-btn:hover {
+    background-color: rgb(85, 85, 85);
+}
+
+.map-scrollview {
+    flex-grow: 1;
+}
+
+.map-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.level-node {
+    margin: 20px;
+}
+
+.level-btn {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    border-width: 4px;
+    border-color: white;
+    justify-content: center;
+    align-items: center;
+    transition-duration: 0.2s;
+}
+
+.level-name {
+    font-size: 24px;
+    -unity-font-style: bold;
+    color: white;
+}
+
+.unlocked-level {
+    background-color: rgb(46, 204, 113);
+}
+
+.unlocked-level:hover {
+    scale: 1.1;
+    background-color: rgb(39, 174, 96);
+}
+
+.locked-level {
+    background-color: rgb(127, 140, 141);
+    border-color: rgb(149, 165, 166);
+}
+
+.locked-level .level-name {
+    color: rgb(189, 195, 199);
+}

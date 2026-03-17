@@ -23,5 +23,6 @@ MonoBehaviour:
     Description: Sering tampak gelisah dan berbicara sangat cepat
     Image: {fileID: 0}
   Rumors: Sering keluar dan berkeliaran di malam hari serta tidur di pagi hari
-  IsUser: 0
+  Role: 2
+  UrineTestResult: 0
   hasBeenTested: 0
