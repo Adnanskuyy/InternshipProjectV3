@@ -5,35 +5,17 @@ description: Set the specified opened scene as the active scene. Use 'scene-list
 
 # Scene / Set Active
 
-Set the specified opened scene as the active scene. Use 'scene-list-opened' tool to get the list of all opened scenes.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/scene-set-active \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool scene-set-active --input '{
   "sceneRef": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/scene-set-active \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "sceneRef": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -48,8 +30,7 @@ curl -X POST http://localhost:56781/api/tools/scene-set-active \
   "type": "object",
   "properties": {
     "sceneRef": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.AssetObjectRef",
-      "description": "Reference to UnityEngine.Object asset instance. It could be Material, ScriptableObject, Prefab, and any other Asset. Anything located in the Assets and Packages folders."
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.AssetObjectRef"
     }
   },
   "$defs": {
@@ -61,7 +42,7 @@ curl -X POST http://localhost:56781/api/tools/scene-set-active \
       "properties": {
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027 and \u0027assetPath\u0027 and \u0027assetGuid\u0027 is not provided, empty or null, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0' and 'assetPath' and 'assetGuid' is not provided, empty or null, then it will be used as 'null'."
         },
         "assetType": {
           "$ref": "#/$defs/System.Type",
@@ -69,7 +50,7 @@ curl -X POST http://localhost:56781/api/tools/scene-set-active \
         },
         "assetPath": {
           "type": "string",
-          "description": "Path to the asset within the project. Starts with \u0027Assets/\u0027"
+          "description": "Path to the asset within the project. Starts with 'Assets/'"
         },
         "assetGuid": {
           "type": "string",
@@ -125,7 +106,7 @@ curl -X POST http://localhost:56781/api/tools/scene-set-active \
         },
         "path": {
           "type": "string",
-          "description": "Path to the Scene within the project. Starts with \u0027Assets/\u0027"
+          "description": "Path to the Scene within the project. Starts with 'Assets/'"
         },
         "buildIndex": {
           "type": "integer",
@@ -133,7 +114,7 @@ curl -X POST http://localhost:56781/api/tools/scene-set-active \
         },
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0', then it will be used as 'null'."
         }
       },
       "required": [

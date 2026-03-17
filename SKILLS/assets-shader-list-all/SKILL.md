@@ -5,35 +5,17 @@ description: List all available shaders in the project assets and packages. Retu
 
 # Assets / List Shaders
 
-List all available shaders in the project assets and packages. Returns their names. Use this to find a shader name for 'assets-material-create' tool.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/assets-shader-list-all \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool assets-shader-list-all --input '{
   "nothing": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/assets-shader-list-all \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "nothing": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 

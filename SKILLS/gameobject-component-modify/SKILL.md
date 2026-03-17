@@ -5,39 +5,19 @@ description: Modify a specific Component on a GameObject in opened Prefab or in 
 
 # GameObject / Component / Modify
 
-Modify a specific Component on a GameObject in opened Prefab or in a Scene. Allows direct modification of component fields and properties without wrapping in GameObject structure. Use 'gameobject-component-get' first to inspect the component structure before modifying.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/gameobject-component-modify \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool gameobject-component-modify --input '{
   "gameObjectRef": "string_value",
   "componentRef": "string_value",
   "componentDiff": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/gameobject-component-modify \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "gameObjectRef": "string_value",
-  "componentRef": "string_value",
-  "componentDiff": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -56,16 +36,13 @@ Any unknown or invalid fields and properties will be reported in the response. |
   "type": "object",
   "properties": {
     "gameObjectRef": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectRef",
-      "description": "Find GameObject in opened Prefab or in the active Scene."
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectRef"
     },
     "componentRef": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.ComponentRef",
-      "description": "Component reference. Used to find a Component at GameObject."
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.ComponentRef"
     },
     "componentDiff": {
-      "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
-      "description": "The component data to apply. Should contain \u0027fields\u0027 and/or \u0027props\u0027 with the values to modify.\nOnly include the fields/properties you want to change.\nAny unknown or invalid fields and properties will be reported in the response."
+      "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember"
     }
   },
   "$defs": {
@@ -77,11 +54,11 @@ Any unknown or invalid fields and properties will be reported in the response. |
       "properties": {
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If it is \u00270\u0027 and \u0027path\u0027, \u0027name\u0027, \u0027assetPath\u0027 and \u0027assetGuid\u0027 is not provided, empty or null, then it will be used as \u0027null\u0027. Priority: 1 (Recommended)"
+          "description": "instanceID of the UnityEngine.Object. If it is '0' and 'path', 'name', 'assetPath' and 'assetGuid' is not provided, empty or null, then it will be used as 'null'. Priority: 1 (Recommended)"
         },
         "path": {
           "type": "string",
-          "description": "Path of a GameObject in the hierarchy Sample \u0027character/hand/finger/particle\u0027. Priority: 2."
+          "description": "Path of a GameObject in the hierarchy Sample 'character/hand/finger/particle'. Priority: 2."
         },
         "name": {
           "type": "string",
@@ -93,7 +70,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
         },
         "assetPath": {
           "type": "string",
-          "description": "Path to the asset within the project. Starts with \u0027Assets/\u0027"
+          "description": "Path to the asset within the project. Starts with 'Assets/'"
         },
         "assetGuid": {
           "type": "string",
@@ -110,15 +87,15 @@ Any unknown or invalid fields and properties will be reported in the response. |
       "properties": {
         "index": {
           "type": "integer",
-          "description": "Component \u0027index\u0027 attached to a gameObject. The first index is \u00270\u0027 and that is usually Transform or RectTransform. Priority: 2. Default value is -1."
+          "description": "Component 'index' attached to a gameObject. The first index is '0' and that is usually Transform or RectTransform. Priority: 2. Default value is -1."
         },
         "typeName": {
           "type": "string",
-          "description": "Component type full name. Sample \u0027UnityEngine.Transform\u0027. If the gameObject has two components of the same type, the output component is unpredictable. Priority: 3. Default value is null."
+          "description": "Component type full name. Sample 'UnityEngine.Transform'. If the gameObject has two components of the same type, the output component is unpredictable. Priority: 3. Default value is null."
         },
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0', then it will be used as 'null'."
         }
       },
       "required": [
@@ -138,7 +115,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
       "properties": {
         "typeName": {
           "type": "string",
-          "description": "Full type name. Eg: \u0027System.String\u0027, \u0027System.Int32\u0027, \u0027UnityEngine.Vector3\u0027, etc."
+          "description": "Full type name. Eg: 'System.String', 'System.Int32', 'UnityEngine.Vector3', etc."
         },
         "name": {
           "type": "string",
@@ -153,7 +130,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested field value."
           },
-          "description": "Fields of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Fields of the object, serialized as a list of 'SerializedMember'."
         },
         "props": {
           "type": "array",
@@ -161,7 +138,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested property value."
           },
-          "description": "Properties of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Properties of the object, serialized as a list of 'SerializedMember'."
         }
       },
       "required": [
@@ -187,7 +164,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
   "type": "object",
   "properties": {
     "result": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject\u002BModifyComponentResponse"
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject+ModifyComponentResponse"
     }
   },
   "$defs": {
@@ -196,15 +173,15 @@ Any unknown or invalid fields and properties will be reported in the response. |
       "properties": {
         "index": {
           "type": "integer",
-          "description": "Component \u0027index\u0027 attached to a gameObject. The first index is \u00270\u0027 and that is usually Transform or RectTransform. Priority: 2. Default value is -1."
+          "description": "Component 'index' attached to a gameObject. The first index is '0' and that is usually Transform or RectTransform. Priority: 2. Default value is -1."
         },
         "typeName": {
           "type": "string",
-          "description": "Component type full name. Sample \u0027UnityEngine.Transform\u0027. If the gameObject has two components of the same type, the output component is unpredictable. Priority: 3. Default value is null."
+          "description": "Component type full name. Sample 'UnityEngine.Transform'. If the gameObject has two components of the same type, the output component is unpredictable. Priority: 3. Default value is null."
         },
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0', then it will be used as 'null'."
         }
       },
       "required": [
@@ -242,7 +219,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
         "type": "string"
       }
     },
-    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject\u002BModifyComponentResponse": {
+    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject+ModifyComponentResponse": {
       "type": "object",
       "properties": {
         "Success": {
@@ -255,7 +232,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
         },
         "Index": {
           "type": "integer",
-          "description": "Index of the component in the GameObject\u0027s component list."
+          "description": "Index of the component in the GameObject's component list."
         },
         "Component": {
           "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.ComponentDataShallow",

@@ -5,35 +5,17 @@ description: Delete the assets at paths from the project. Does AssetDatabase.Ref
 
 # Assets / Delete
 
-Delete the assets at paths from the project. Does AssetDatabase.Refresh() at the end. Use 'assets-find' tool to find assets before deleting.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/assets-delete \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool assets-delete --input '{
   "paths": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/assets-delete \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "paths": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -48,8 +30,7 @@ curl -X POST http://localhost:56781/api/tools/assets-delete \
   "type": "object",
   "properties": {
     "paths": {
-      "$ref": "#/$defs/System.String[]",
-      "description": "The paths of the assets"
+      "$ref": "#/$defs/System.String[]"
     }
   },
   "$defs": {
@@ -75,25 +56,25 @@ curl -X POST http://localhost:56781/api/tools/assets-delete \
   "type": "object",
   "properties": {
     "result": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_Assets\u002BDeleteAssetsResponse"
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_Assets+DeleteAssetsResponse"
     }
   },
   "$defs": {
-    "System.Collections.Generic.List\u003CSystem.String\u003E": {
+    "System.Collections.Generic.List<System.String>": {
       "type": "array",
       "items": {
         "type": "string"
       }
     },
-    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_Assets\u002BDeleteAssetsResponse": {
+    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_Assets+DeleteAssetsResponse": {
       "type": "object",
       "properties": {
         "DeletedPaths": {
-          "$ref": "#/$defs/System.Collections.Generic.List\u003CSystem.String\u003E",
+          "$ref": "#/$defs/System.Collections.Generic.List<System.String>",
           "description": "List of paths of deleted assets."
         },
         "Errors": {
-          "$ref": "#/$defs/System.Collections.Generic.List\u003CSystem.String\u003E",
+          "$ref": "#/$defs/System.Collections.Generic.List<System.String>",
           "description": "List of errors encountered during delete operations."
         }
       }

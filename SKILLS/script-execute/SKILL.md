@@ -5,41 +5,20 @@ description: Compiles and executes C# code dynamically using Roslyn. The provide
 
 # Script / Execute
 
-Compiles and executes C# code dynamically using Roslyn. The provided code must define a class with a static method to execute.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/script-execute \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool script-execute --input '{
   "csharpCode": "string_value",
   "className": "string_value",
   "methodName": "string_value",
   "parameters": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/script-execute \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "csharpCode": "string_value",
-  "className": "string_value",
-  "methodName": "string_value",
-  "parameters": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -57,20 +36,16 @@ curl -X POST http://localhost:56781/api/tools/script-execute \
   "type": "object",
   "properties": {
     "csharpCode": {
-      "type": "string",
-      "description": "C# code that compiles and executes immediately. It won\u0027t be stored as a script in the project. It is temporary one shot C# code execution using Roslyn. IMPORTANT: The code must define a class (e.g., \u0027public class Script\u0027) with a static method (e.g., \u0027public static object Main()\u0027). Do NOT use top-level statements or code outside a class. Top-level statements are not supported and will cause compilation errors."
+      "type": "string"
     },
     "className": {
-      "type": "string",
-      "description": "The name of the class containing the method to execute."
+      "type": "string"
     },
     "methodName": {
-      "type": "string",
-      "description": "The name of the method to execute. It must be a static method in the class provided above."
+      "type": "string"
     },
     "parameters": {
-      "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMemberList",
-      "description": "Serialized parameters to pass to the method. If the method does not require parameters, leave this empty."
+      "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMemberList"
     }
   },
   "$defs": {
@@ -85,7 +60,7 @@ curl -X POST http://localhost:56781/api/tools/script-execute \
       "properties": {
         "typeName": {
           "type": "string",
-          "description": "Full type name. Eg: \u0027System.String\u0027, \u0027System.Int32\u0027, \u0027UnityEngine.Vector3\u0027, etc."
+          "description": "Full type name. Eg: 'System.String', 'System.Int32', 'UnityEngine.Vector3', etc."
         },
         "name": {
           "type": "string",
@@ -100,7 +75,7 @@ curl -X POST http://localhost:56781/api/tools/script-execute \
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested field value."
           },
-          "description": "Fields of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Fields of the object, serialized as a list of 'SerializedMember'."
         },
         "props": {
           "type": "array",
@@ -108,7 +83,7 @@ curl -X POST http://localhost:56781/api/tools/script-execute \
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested property value."
           },
-          "description": "Properties of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Properties of the object, serialized as a list of 'SerializedMember'."
         }
       },
       "required": [
@@ -147,7 +122,7 @@ curl -X POST http://localhost:56781/api/tools/script-execute \
       "properties": {
         "typeName": {
           "type": "string",
-          "description": "Full type name. Eg: \u0027System.String\u0027, \u0027System.Int32\u0027, \u0027UnityEngine.Vector3\u0027, etc."
+          "description": "Full type name. Eg: 'System.String', 'System.Int32', 'UnityEngine.Vector3', etc."
         },
         "name": {
           "type": "string",
@@ -162,7 +137,7 @@ curl -X POST http://localhost:56781/api/tools/script-execute \
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested field value."
           },
-          "description": "Fields of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Fields of the object, serialized as a list of 'SerializedMember'."
         },
         "props": {
           "type": "array",
@@ -170,7 +145,7 @@ curl -X POST http://localhost:56781/api/tools/script-execute \
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested property value."
           },
-          "description": "Properties of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Properties of the object, serialized as a list of 'SerializedMember'."
         }
       },
       "required": [

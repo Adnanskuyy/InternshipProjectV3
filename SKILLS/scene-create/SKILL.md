@@ -5,39 +5,19 @@ description: Create new scene in the project assets. Use 'scene-list-opened' too
 
 # Scene / Create
 
-Create new scene in the project assets. Use 'scene-list-opened' tool to list all opened scenes after creation.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/scene-create \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool scene-create --input '{
   "path": "string_value",
   "newSceneSetup": "string_value",
   "newSceneMode": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/scene-create \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "path": "string_value",
-  "newSceneSetup": "string_value",
-  "newSceneMode": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -54,8 +34,7 @@ curl -X POST http://localhost:56781/api/tools/scene-create \
   "type": "object",
   "properties": {
     "path": {
-      "type": "string",
-      "description": "Path to the scene file. Should end with \u0022.unity\u0022 extension."
+      "type": "string"
     },
     "newSceneSetup": {
       "$ref": "#/$defs/UnityEditor.SceneManagement.NewSceneSetup"
@@ -124,7 +103,7 @@ curl -X POST http://localhost:56781/api/tools/scene-create \
         },
         "path": {
           "type": "string",
-          "description": "Path to the Scene within the project. Starts with \u0027Assets/\u0027"
+          "description": "Path to the Scene within the project. Starts with 'Assets/'"
         },
         "buildIndex": {
           "type": "integer",
@@ -132,7 +111,7 @@ curl -X POST http://localhost:56781/api/tools/scene-create \
         },
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0', then it will be used as 'null'."
         }
       },
       "required": [

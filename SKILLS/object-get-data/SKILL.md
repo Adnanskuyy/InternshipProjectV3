@@ -5,35 +5,17 @@ description: Get data of the specified Unity Object. Returns serialized data of 
 
 # Object / Get Data
 
-Get data of the specified Unity Object. Returns serialized data of the object including its properties and fields. If need to modify the data use 'object-modify' tool.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/object-get-data \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool object-get-data --input '{
   "objectRef": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/object-get-data \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "objectRef": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -48,8 +30,7 @@ curl -X POST http://localhost:56781/api/tools/object-get-data \
   "type": "object",
   "properties": {
     "objectRef": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.ObjectRef",
-      "description": "Reference to UnityEngine.Object instance. It could be GameObject, Component, Asset, etc. Anything extended from UnityEngine.Object."
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.ObjectRef"
     }
   },
   "$defs": {
@@ -58,7 +39,7 @@ curl -X POST http://localhost:56781/api/tools/object-get-data \
       "properties": {
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0', then it will be used as 'null'."
         }
       },
       "required": [
@@ -97,7 +78,7 @@ curl -X POST http://localhost:56781/api/tools/object-get-data \
       "properties": {
         "typeName": {
           "type": "string",
-          "description": "Full type name. Eg: \u0027System.String\u0027, \u0027System.Int32\u0027, \u0027UnityEngine.Vector3\u0027, etc."
+          "description": "Full type name. Eg: 'System.String', 'System.Int32', 'UnityEngine.Vector3', etc."
         },
         "name": {
           "type": "string",
@@ -112,7 +93,7 @@ curl -X POST http://localhost:56781/api/tools/object-get-data \
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested field value."
           },
-          "description": "Fields of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Fields of the object, serialized as a list of 'SerializedMember'."
         },
         "props": {
           "type": "array",
@@ -120,7 +101,7 @@ curl -X POST http://localhost:56781/api/tools/object-get-data \
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested property value."
           },
-          "description": "Properties of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Properties of the object, serialized as a list of 'SerializedMember'."
         }
       },
       "required": [

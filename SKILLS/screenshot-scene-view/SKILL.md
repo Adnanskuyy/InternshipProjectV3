@@ -5,37 +5,18 @@ description: Captures a screenshot from the Unity Editor Scene View and returns 
 
 # Screenshot / Scene View
 
-Captures a screenshot from the Unity Editor Scene View and returns it as an image. Returns the image directly for visual inspection by the LLM.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/screenshot-scene-view \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool screenshot-scene-view --input '{
   "width": 0,
   "height": 0
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/screenshot-scene-view \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "width": 0,
-  "height": 0
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -51,12 +32,10 @@ curl -X POST http://localhost:56781/api/tools/screenshot-scene-view \
   "type": "object",
   "properties": {
     "width": {
-      "type": "integer",
-      "description": "Width of the screenshot in pixels."
+      "type": "integer"
     },
     "height": {
-      "type": "integer",
-      "description": "Height of the screenshot in pixels."
+      "type": "integer"
     }
   }
 }

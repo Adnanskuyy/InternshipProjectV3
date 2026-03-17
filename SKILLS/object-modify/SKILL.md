@@ -5,37 +5,18 @@ description: Modify the specified Unity Object. Allows direct modification of ob
 
 # Object / Modify
 
-Modify the specified Unity Object. Allows direct modification of object fields and properties. Use 'object-get-data' first to inspect the object structure before modifying.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/object-modify \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool object-modify --input '{
   "objectRef": "string_value",
   "objectDiff": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/object-modify \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "objectRef": "string_value",
-  "objectDiff": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -53,12 +34,10 @@ Any unknown or invalid fields and properties will be reported in the response. |
   "type": "object",
   "properties": {
     "objectRef": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.ObjectRef",
-      "description": "Reference to UnityEngine.Object instance. It could be GameObject, Component, Asset, etc. Anything extended from UnityEngine.Object."
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.ObjectRef"
     },
     "objectDiff": {
-      "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
-      "description": "The object data to apply. Should contain \u0027fields\u0027 and/or \u0027props\u0027 with the values to modify.\nOnly include the fields/properties you want to change.\nAny unknown or invalid fields and properties will be reported in the response."
+      "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember"
     }
   },
   "$defs": {
@@ -67,7 +46,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
       "properties": {
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0', then it will be used as 'null'."
         }
       },
       "required": [
@@ -86,7 +65,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
       "properties": {
         "typeName": {
           "type": "string",
-          "description": "Full type name. Eg: \u0027System.String\u0027, \u0027System.Int32\u0027, \u0027UnityEngine.Vector3\u0027, etc."
+          "description": "Full type name. Eg: 'System.String', 'System.Int32', 'UnityEngine.Vector3', etc."
         },
         "name": {
           "type": "string",
@@ -101,7 +80,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested field value."
           },
-          "description": "Fields of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Fields of the object, serialized as a list of 'SerializedMember'."
         },
         "props": {
           "type": "array",
@@ -109,7 +88,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested property value."
           },
-          "description": "Properties of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Properties of the object, serialized as a list of 'SerializedMember'."
         }
       },
       "required": [
@@ -134,7 +113,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
   "type": "object",
   "properties": {
     "result": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_Object\u002BModifyObjectResponse"
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_Object+ModifyObjectResponse"
     }
   },
   "$defs": {
@@ -143,7 +122,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
       "properties": {
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0', then it will be used as 'null'."
         }
       },
       "required": [
@@ -156,7 +135,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
       "properties": {
         "typeName": {
           "type": "string",
-          "description": "Full type name. Eg: \u0027System.String\u0027, \u0027System.Int32\u0027, \u0027UnityEngine.Vector3\u0027, etc."
+          "description": "Full type name. Eg: 'System.String', 'System.Int32', 'UnityEngine.Vector3', etc."
         },
         "name": {
           "type": "string",
@@ -171,7 +150,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested field value."
           },
-          "description": "Fields of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Fields of the object, serialized as a list of 'SerializedMember'."
         },
         "props": {
           "type": "array",
@@ -179,7 +158,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested property value."
           },
-          "description": "Properties of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Properties of the object, serialized as a list of 'SerializedMember'."
         }
       },
       "required": [
@@ -199,7 +178,7 @@ Any unknown or invalid fields and properties will be reported in the response. |
         "type": "string"
       }
     },
-    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_Object\u002BModifyObjectResponse": {
+    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_Object+ModifyObjectResponse": {
       "type": "object",
       "properties": {
         "Success": {

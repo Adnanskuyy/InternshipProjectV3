@@ -5,35 +5,17 @@ description: Delete the script file(s). Does AssetDatabase.Refresh() and waits f
 
 # Script / Delete
 
-Delete the script file(s). Does AssetDatabase.Refresh() and waits for Unity compilation to complete before reporting results. Use 'script-read' tool to read existing script files first.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/script-delete \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool script-delete --input '{
   "files": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/script-delete \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "files": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -48,8 +30,7 @@ curl -X POST http://localhost:56781/api/tools/script-delete \
   "type": "object",
   "properties": {
     "files": {
-      "$ref": "#/$defs/System.String[]",
-      "description": "File paths to the files. Sample: \u0022Assets/Scripts/MyScript.cs\u0022."
+      "$ref": "#/$defs/System.String[]"
     }
   },
   "$defs": {

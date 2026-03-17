@@ -5,18 +5,14 @@ description: Get detailed information about a specific Component on a GameObject
 
 # GameObject / Component / Get
 
-Get detailed information about a specific Component on a GameObject. Returns component type, enabled state, and optionally serialized fields and properties. Use this to inspect component data before modifying it. Use 'gameobject-find' tool to get the list of all components on the GameObject.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool gameobject-component-get --input '{
   "gameObjectRef": "string_value",
   "componentRef": "string_value",
   "includeFields": false,
@@ -24,24 +20,6 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
   "deepSerialization": false
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "gameObjectRef": "string_value",
-  "componentRef": "string_value",
-  "includeFields": false,
-  "includeProperties": false,
-  "deepSerialization": false
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -60,24 +38,19 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
   "type": "object",
   "properties": {
     "gameObjectRef": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectRef",
-      "description": "Find GameObject in opened Prefab or in the active Scene."
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectRef"
     },
     "componentRef": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.ComponentRef",
-      "description": "Component reference. Used to find a Component at GameObject."
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.ComponentRef"
     },
     "includeFields": {
-      "type": "boolean",
-      "description": "Include serialized fields of the component."
+      "type": "boolean"
     },
     "includeProperties": {
-      "type": "boolean",
-      "description": "Include serialized properties of the component."
+      "type": "boolean"
     },
     "deepSerialization": {
-      "type": "boolean",
-      "description": "Performs deep serialization including all nested objects. Otherwise, only serializes top-level members."
+      "type": "boolean"
     }
   },
   "$defs": {
@@ -89,11 +62,11 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
       "properties": {
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If it is \u00270\u0027 and \u0027path\u0027, \u0027name\u0027, \u0027assetPath\u0027 and \u0027assetGuid\u0027 is not provided, empty or null, then it will be used as \u0027null\u0027. Priority: 1 (Recommended)"
+          "description": "instanceID of the UnityEngine.Object. If it is '0' and 'path', 'name', 'assetPath' and 'assetGuid' is not provided, empty or null, then it will be used as 'null'. Priority: 1 (Recommended)"
         },
         "path": {
           "type": "string",
-          "description": "Path of a GameObject in the hierarchy Sample \u0027character/hand/finger/particle\u0027. Priority: 2."
+          "description": "Path of a GameObject in the hierarchy Sample 'character/hand/finger/particle'. Priority: 2."
         },
         "name": {
           "type": "string",
@@ -105,7 +78,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
         },
         "assetPath": {
           "type": "string",
-          "description": "Path to the asset within the project. Starts with \u0027Assets/\u0027"
+          "description": "Path to the asset within the project. Starts with 'Assets/'"
         },
         "assetGuid": {
           "type": "string",
@@ -122,15 +95,15 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
       "properties": {
         "index": {
           "type": "integer",
-          "description": "Component \u0027index\u0027 attached to a gameObject. The first index is \u00270\u0027 and that is usually Transform or RectTransform. Priority: 2. Default value is -1."
+          "description": "Component 'index' attached to a gameObject. The first index is '0' and that is usually Transform or RectTransform. Priority: 2. Default value is -1."
         },
         "typeName": {
           "type": "string",
-          "description": "Component type full name. Sample \u0027UnityEngine.Transform\u0027. If the gameObject has two components of the same type, the output component is unpredictable. Priority: 3. Default value is null."
+          "description": "Component type full name. Sample 'UnityEngine.Transform'. If the gameObject has two components of the same type, the output component is unpredictable. Priority: 3. Default value is null."
         },
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0', then it will be used as 'null'."
         }
       },
       "required": [
@@ -156,7 +129,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
   "type": "object",
   "properties": {
     "result": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject\u002BGetComponentResponse"
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject+GetComponentResponse"
     }
   },
   "$defs": {
@@ -165,15 +138,15 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
       "properties": {
         "index": {
           "type": "integer",
-          "description": "Component \u0027index\u0027 attached to a gameObject. The first index is \u00270\u0027 and that is usually Transform or RectTransform. Priority: 2. Default value is -1."
+          "description": "Component 'index' attached to a gameObject. The first index is '0' and that is usually Transform or RectTransform. Priority: 2. Default value is -1."
         },
         "typeName": {
           "type": "string",
-          "description": "Component type full name. Sample \u0027UnityEngine.Transform\u0027. If the gameObject has two components of the same type, the output component is unpredictable. Priority: 3. Default value is null."
+          "description": "Component type full name. Sample 'UnityEngine.Transform'. If the gameObject has two components of the same type, the output component is unpredictable. Priority: 3. Default value is null."
         },
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0', then it will be used as 'null'."
         }
       },
       "required": [
@@ -205,7 +178,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
         "isEnabled"
       ]
     },
-    "System.Collections.Generic.List\u003Ccom.IvanMurzak.ReflectorNet.Model.SerializedMember\u003E": {
+    "System.Collections.Generic.List<com.IvanMurzak.ReflectorNet.Model.SerializedMember>": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember"
@@ -216,7 +189,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
       "properties": {
         "typeName": {
           "type": "string",
-          "description": "Full type name. Eg: \u0027System.String\u0027, \u0027System.Int32\u0027, \u0027UnityEngine.Vector3\u0027, etc."
+          "description": "Full type name. Eg: 'System.String', 'System.Int32', 'UnityEngine.Vector3', etc."
         },
         "name": {
           "type": "string",
@@ -231,7 +204,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested field value."
           },
-          "description": "Fields of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Fields of the object, serialized as a list of 'SerializedMember'."
         },
         "props": {
           "type": "array",
@@ -239,7 +212,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested property value."
           },
-          "description": "Properties of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Properties of the object, serialized as a list of 'SerializedMember'."
         }
       },
       "required": [
@@ -253,7 +226,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
         "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember"
       }
     },
-    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject\u002BGetComponentResponse": {
+    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject+GetComponentResponse": {
       "type": "object",
       "properties": {
         "Reference": {
@@ -262,18 +235,18 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-get \
         },
         "Index": {
           "type": "integer",
-          "description": "Index of the component in the GameObject\u0027s component list."
+          "description": "Index of the component in the GameObject's component list."
         },
         "Component": {
           "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.ComponentDataShallow",
           "description": "Basic component information (type, enabled state)."
         },
         "Fields": {
-          "$ref": "#/$defs/System.Collections.Generic.List\u003Ccom.IvanMurzak.ReflectorNet.Model.SerializedMember\u003E",
+          "$ref": "#/$defs/System.Collections.Generic.List<com.IvanMurzak.ReflectorNet.Model.SerializedMember>",
           "description": "Serialized fields of the component."
         },
         "Properties": {
-          "$ref": "#/$defs/System.Collections.Generic.List\u003Ccom.IvanMurzak.ReflectorNet.Model.SerializedMember\u003E",
+          "$ref": "#/$defs/System.Collections.Generic.List<com.IvanMurzak.ReflectorNet.Model.SerializedMember>",
           "description": "Serialized properties of the component."
         }
       },

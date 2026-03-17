@@ -5,39 +5,19 @@ description: List C# class names extended from UnityEngine.Component. Use this t
 
 # GameObject / Component / List All
 
-List C# class names extended from UnityEngine.Component. Use this to find component type names for 'gameobject-component-add' tool. Results are paginated to avoid overwhelming responses.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/gameobject-component-list-all \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool gameobject-component-list-all --input '{
   "search": "string_value",
   "page": 0,
   "pageSize": 0
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/gameobject-component-list-all \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "search": "string_value",
-  "page": 0,
-  "pageSize": 0
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -54,16 +34,13 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-list-all \
   "type": "object",
   "properties": {
     "search": {
-      "type": "string",
-      "description": "Substring for searching components. Could be empty."
+      "type": "string"
     },
     "page": {
-      "type": "integer",
-      "description": "Page number (0-based). Default is 0."
+      "type": "integer"
     },
     "pageSize": {
-      "type": "integer",
-      "description": "Number of items per page. Default is 5. Max is 500."
+      "type": "integer"
     }
   }
 }
@@ -78,7 +55,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-list-all \
   "type": "object",
   "properties": {
     "result": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject\u002BComponentListResult"
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject+ComponentListResult"
     }
   },
   "$defs": {
@@ -88,7 +65,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-component-list-all \
         "type": "string"
       }
     },
-    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject\u002BComponentListResult": {
+    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_GameObject+ComponentListResult": {
       "type": "object",
       "properties": {
         "Items": {

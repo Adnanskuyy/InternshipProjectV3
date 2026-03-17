@@ -5,39 +5,19 @@ description: Create a prefab from a GameObject in the current active scene. The 
 
 # Assets / Prefab / Create
 
-Create a prefab from a GameObject in the current active scene. The prefab will be saved in the project assets at the specified path. Use 'gameobject-find' tool to find the target GameObject first.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/assets-prefab-create \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool assets-prefab-create --input '{
   "prefabAssetPath": "string_value",
   "gameObjectRef": "string_value",
   "replaceGameObjectWithPrefab": false
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/assets-prefab-create \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "prefabAssetPath": "string_value",
-  "gameObjectRef": "string_value",
-  "replaceGameObjectWithPrefab": false
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -54,16 +34,13 @@ curl -X POST http://localhost:56781/api/tools/assets-prefab-create \
   "type": "object",
   "properties": {
     "prefabAssetPath": {
-      "type": "string",
-      "description": "Prefab asset path. Should be in the format \u0027Assets/Path/To/Prefab.prefab\u0027."
+      "type": "string"
     },
     "gameObjectRef": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectRef",
-      "description": "Find GameObject in opened Prefab or in the active Scene."
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectRef"
     },
     "replaceGameObjectWithPrefab": {
-      "type": "boolean",
-      "description": "If true, the prefab will replace the GameObject in the scene."
+      "type": "boolean"
     }
   },
   "$defs": {
@@ -75,11 +52,11 @@ curl -X POST http://localhost:56781/api/tools/assets-prefab-create \
       "properties": {
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If it is \u00270\u0027 and \u0027path\u0027, \u0027name\u0027, \u0027assetPath\u0027 and \u0027assetGuid\u0027 is not provided, empty or null, then it will be used as \u0027null\u0027. Priority: 1 (Recommended)"
+          "description": "instanceID of the UnityEngine.Object. If it is '0' and 'path', 'name', 'assetPath' and 'assetGuid' is not provided, empty or null, then it will be used as 'null'. Priority: 1 (Recommended)"
         },
         "path": {
           "type": "string",
-          "description": "Path of a GameObject in the hierarchy Sample \u0027character/hand/finger/particle\u0027. Priority: 2."
+          "description": "Path of a GameObject in the hierarchy Sample 'character/hand/finger/particle'. Priority: 2."
         },
         "name": {
           "type": "string",
@@ -91,7 +68,7 @@ curl -X POST http://localhost:56781/api/tools/assets-prefab-create \
         },
         "assetPath": {
           "type": "string",
-          "description": "Path to the asset within the project. Starts with \u0027Assets/\u0027"
+          "description": "Path to the asset within the project. Starts with 'Assets/'"
         },
         "assetGuid": {
           "type": "string",
@@ -133,7 +110,7 @@ curl -X POST http://localhost:56781/api/tools/assets-prefab-create \
       "properties": {
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027 and \u0027assetPath\u0027 and \u0027assetGuid\u0027 is not provided, empty or null, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0' and 'assetPath' and 'assetGuid' is not provided, empty or null, then it will be used as 'null'."
         },
         "assetType": {
           "$ref": "#/$defs/System.Type",
@@ -141,7 +118,7 @@ curl -X POST http://localhost:56781/api/tools/assets-prefab-create \
         },
         "assetPath": {
           "type": "string",
-          "description": "Path to the asset within the project. Starts with \u0027Assets/\u0027"
+          "description": "Path to the asset within the project. Starts with 'Assets/'"
         },
         "assetGuid": {
           "type": "string",

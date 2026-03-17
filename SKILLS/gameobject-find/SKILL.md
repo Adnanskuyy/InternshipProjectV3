@@ -5,18 +5,14 @@ description: Finds specific GameObject by provided information in opened Prefab 
 
 # GameObject / Find
 
-Finds specific GameObject by provided information in opened Prefab or in a Scene. First it looks for the opened Prefab, if any Prefab is opened it looks only there ignoring a scene. If no opened Prefab it looks into current active scene. Returns GameObject information and its children. Also, it returns Components preview just for the target GameObject.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/gameobject-find \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool gameobject-find --input '{
   "gameObjectRef": "string_value",
   "includeData": false,
   "includeComponents": false,
@@ -25,25 +21,6 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
   "hierarchyDepth": 0
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/gameobject-find \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "gameObjectRef": "string_value",
-  "includeData": false,
-  "includeComponents": false,
-  "includeBounds": false,
-  "includeHierarchy": false,
-  "hierarchyDepth": 0
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -63,28 +40,22 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
   "type": "object",
   "properties": {
     "gameObjectRef": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectRef",
-      "description": "Find GameObject in opened Prefab or in the active Scene."
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectRef"
     },
     "includeData": {
-      "type": "boolean",
-      "description": "Include editable GameObject data (tag, layer, etc)."
+      "type": "boolean"
     },
     "includeComponents": {
-      "type": "boolean",
-      "description": "Include attached components references."
+      "type": "boolean"
     },
     "includeBounds": {
-      "type": "boolean",
-      "description": "Include 3D bounds of the GameObject."
+      "type": "boolean"
     },
     "includeHierarchy": {
-      "type": "boolean",
-      "description": "Include hierarchy metadata."
+      "type": "boolean"
     },
     "hierarchyDepth": {
-      "type": "integer",
-      "description": "Determines the depth of the hierarchy to include. 0 - means only the target GameObject. 1 - means to include one layer below."
+      "type": "integer"
     }
   },
   "$defs": {
@@ -96,11 +67,11 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
       "properties": {
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If it is \u00270\u0027 and \u0027path\u0027, \u0027name\u0027, \u0027assetPath\u0027 and \u0027assetGuid\u0027 is not provided, empty or null, then it will be used as \u0027null\u0027. Priority: 1 (Recommended)"
+          "description": "instanceID of the UnityEngine.Object. If it is '0' and 'path', 'name', 'assetPath' and 'assetGuid' is not provided, empty or null, then it will be used as 'null'. Priority: 1 (Recommended)"
         },
         "path": {
           "type": "string",
-          "description": "Path of a GameObject in the hierarchy Sample \u0027character/hand/finger/particle\u0027. Priority: 2."
+          "description": "Path of a GameObject in the hierarchy Sample 'character/hand/finger/particle'. Priority: 2."
         },
         "name": {
           "type": "string",
@@ -112,7 +83,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
         },
         "assetPath": {
           "type": "string",
-          "description": "Path to the asset within the project. Starts with \u0027Assets/\u0027"
+          "description": "Path to the asset within the project. Starts with 'Assets/'"
         },
         "assetGuid": {
           "type": "string",
@@ -149,11 +120,11 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
       "properties": {
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If it is \u00270\u0027 and \u0027path\u0027, \u0027name\u0027, \u0027assetPath\u0027 and \u0027assetGuid\u0027 is not provided, empty or null, then it will be used as \u0027null\u0027. Priority: 1 (Recommended)"
+          "description": "instanceID of the UnityEngine.Object. If it is '0' and 'path', 'name', 'assetPath' and 'assetGuid' is not provided, empty or null, then it will be used as 'null'. Priority: 1 (Recommended)"
         },
         "path": {
           "type": "string",
-          "description": "Path of a GameObject in the hierarchy Sample \u0027character/hand/finger/particle\u0027. Priority: 2."
+          "description": "Path of a GameObject in the hierarchy Sample 'character/hand/finger/particle'. Priority: 2."
         },
         "name": {
           "type": "string",
@@ -165,7 +136,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
         },
         "assetPath": {
           "type": "string",
-          "description": "Path to the asset within the project. Starts with \u0027Assets/\u0027"
+          "description": "Path to the asset within the project. Starts with 'Assets/'"
         },
         "assetGuid": {
           "type": "string",
@@ -185,7 +156,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
       "properties": {
         "typeName": {
           "type": "string",
-          "description": "Full type name. Eg: \u0027System.String\u0027, \u0027System.Int32\u0027, \u0027UnityEngine.Vector3\u0027, etc."
+          "description": "Full type name. Eg: 'System.String', 'System.Int32', 'UnityEngine.Vector3', etc."
         },
         "name": {
           "type": "string",
@@ -200,7 +171,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested field value."
           },
-          "description": "Fields of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Fields of the object, serialized as a list of 'SerializedMember'."
         },
         "props": {
           "type": "array",
@@ -208,7 +179,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
             "$ref": "#/$defs/com.IvanMurzak.ReflectorNet.Model.SerializedMember",
             "description": "Nested property value."
           },
-          "description": "Properties of the object, serialized as a list of \u0027SerializedMember\u0027."
+          "description": "Properties of the object, serialized as a list of 'SerializedMember'."
         }
       },
       "required": [
@@ -295,7 +266,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
           "type": "boolean"
         },
         "children": {
-          "$ref": "#/$defs/System.Collections.Generic.List\u003Ccom.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectMetadata\u003E"
+          "$ref": "#/$defs/System.Collections.Generic.List<com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectMetadata>"
         }
       },
       "required": [
@@ -304,7 +275,7 @@ curl -X POST http://localhost:56781/api/tools/gameobject-find \
         "activeInHierarchy"
       ]
     },
-    "System.Collections.Generic.List\u003Ccom.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectMetadata\u003E": {
+    "System.Collections.Generic.List<com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectMetadata>": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Runtime.Data.GameObjectMetadata"

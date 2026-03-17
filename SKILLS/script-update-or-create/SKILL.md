@@ -5,37 +5,18 @@ description: Updates or creates script file with the provided C# code. Does Asse
 
 # Script / Update or Create
 
-Updates or creates script file with the provided C# code. Does AssetDatabase.Refresh() at the end. Provides compilation error details if the code has syntax errors. Use 'script-read' tool to read existing script files first.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/script-update-or-create \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool script-update-or-create --input '{
   "filePath": "string_value",
   "content": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/script-update-or-create \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "filePath": "string_value",
-  "content": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -51,12 +32,10 @@ curl -X POST http://localhost:56781/api/tools/script-update-or-create \
   "type": "object",
   "properties": {
     "filePath": {
-      "type": "string",
-      "description": "The path to the file. Sample: \u0022Assets/Scripts/MyScript.cs\u0022."
+      "type": "string"
     },
     "content": {
-      "type": "string",
-      "description": "C# code - content of the file."
+      "type": "string"
     }
   },
   "required": [

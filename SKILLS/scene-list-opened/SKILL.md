@@ -5,35 +5,17 @@ description: Returns the list of currently opened scenes in Unity Editor. Use 's
 
 # Scene / List Opened
 
-Returns the list of currently opened scenes in Unity Editor. Use 'scene-get-data' tool to get detailed information about a specific scene.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/scene-list-opened \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool scene-list-opened --input '{
   "nothing": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/scene-list-opened \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "nothing": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -91,7 +73,7 @@ curl -X POST http://localhost:56781/api/tools/scene-list-opened \
         },
         "path": {
           "type": "string",
-          "description": "Path to the Scene within the project. Starts with \u0027Assets/\u0027"
+          "description": "Path to the Scene within the project. Starts with 'Assets/'"
         },
         "buildIndex": {
           "type": "integer",
@@ -99,7 +81,7 @@ curl -X POST http://localhost:56781/api/tools/scene-list-opened \
         },
         "instanceID": {
           "type": "integer",
-          "description": "instanceID of the UnityEngine.Object. If this is \u00270\u0027, then it will be used as \u0027null\u0027."
+          "description": "instanceID of the UnityEngine.Object. If this is '0', then it will be used as 'null'."
         }
       },
       "required": [

@@ -5,37 +5,18 @@ description: Move the assets at paths in the project. Should be used for asset r
 
 # Assets / Move
 
-Move the assets at paths in the project. Should be used for asset rename. Does AssetDatabase.Refresh() at the end. Use 'assets-find' tool to find assets before moving.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/assets-move \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool assets-move --input '{
   "sourcePaths": "string_value",
   "destinationPaths": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/assets-move \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "sourcePaths": "string_value",
-  "destinationPaths": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -51,12 +32,10 @@ curl -X POST http://localhost:56781/api/tools/assets-move \
   "type": "object",
   "properties": {
     "sourcePaths": {
-      "$ref": "#/$defs/System.String[]",
-      "description": "The paths of the assets to move."
+      "$ref": "#/$defs/System.String[]"
     },
     "destinationPaths": {
-      "$ref": "#/$defs/System.String[]",
-      "description": "The paths of moved assets."
+      "$ref": "#/$defs/System.String[]"
     }
   },
   "$defs": {
@@ -83,25 +62,25 @@ curl -X POST http://localhost:56781/api/tools/assets-move \
   "type": "object",
   "properties": {
     "result": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_Assets\u002BMoveAssetsResponse"
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_Assets+MoveAssetsResponse"
     }
   },
   "$defs": {
-    "System.Collections.Generic.List\u003CSystem.String\u003E": {
+    "System.Collections.Generic.List<System.String>": {
       "type": "array",
       "items": {
         "type": "string"
       }
     },
-    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_Assets\u002BMoveAssetsResponse": {
+    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_Assets+MoveAssetsResponse": {
       "type": "object",
       "properties": {
         "MovedPaths": {
-          "$ref": "#/$defs/System.Collections.Generic.List\u003CSystem.String\u003E",
+          "$ref": "#/$defs/System.Collections.Generic.List<System.String>",
           "description": "List of destination paths of successfully moved assets."
         },
         "Errors": {
-          "$ref": "#/$defs/System.Collections.Generic.List\u003CSystem.String\u003E",
+          "$ref": "#/$defs/System.Collections.Generic.List<System.String>",
           "description": "List of errors encountered during move operations."
         }
       }

@@ -5,39 +5,19 @@ description: List all packages installed in the Unity project (UPM packages). Re
 
 # Package Manager / List Installed
 
-List all packages installed in the Unity project (UPM packages). Returns information about each installed package including name, version, source, and description. Use this to check which packages are currently installed before adding or removing packages.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/package-list \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool package-list --input '{
   "sourceFilter": "string_value",
   "nameFilter": "string_value",
   "directDependenciesOnly": false
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/package-list \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "sourceFilter": "string_value",
-  "nameFilter": "string_value",
-  "directDependenciesOnly": false
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -63,16 +43,13 @@ curl -X POST http://localhost:56781/api/tools/package-list \
         "Git",
         "BuiltIn",
         "LocalTarball"
-      ],
-      "description": "Filter packages by source."
+      ]
     },
     "nameFilter": {
-      "type": "string",
-      "description": "Filter packages by name, display name, or description (case-insensitive). Results are prioritized: exact name match, exact display name match, name substring, display name substring, description substring."
+      "type": "string"
     },
     "directDependenciesOnly": {
-      "type": "boolean",
-      "description": "Include only direct dependencies (packages in manifest.json). If false, includes all resolved packages. Default: false"
+      "type": "boolean"
     }
   }
 }
@@ -87,11 +64,11 @@ curl -X POST http://localhost:56781/api/tools/package-list \
   "type": "object",
   "properties": {
     "result": {
-      "$ref": "#/$defs/System.Collections.Generic.List\u003Ccom.IvanMurzak.Unity.MCP.Editor.API.Tool_Package\u002BPackageData\u003E"
+      "$ref": "#/$defs/System.Collections.Generic.List<com.IvanMurzak.Unity.MCP.Editor.API.Tool_Package+PackageData>"
     }
   },
   "$defs": {
-    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_Package\u002BPackageData": {
+    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_Package+PackageData": {
       "type": "object",
       "properties": {
         "Name": {
@@ -121,10 +98,10 @@ curl -X POST http://localhost:56781/api/tools/package-list \
       },
       "description": "Package information returned from package list operation."
     },
-    "System.Collections.Generic.List\u003Ccom.IvanMurzak.Unity.MCP.Editor.API.Tool_Package\u002BPackageData\u003E": {
+    "System.Collections.Generic.List<com.IvanMurzak.Unity.MCP.Editor.API.Tool_Package+PackageData>": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_Package\u002BPackageData",
+        "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_Package+PackageData",
         "description": "Package information returned from package list operation."
       }
     }

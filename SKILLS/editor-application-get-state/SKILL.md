@@ -5,35 +5,17 @@ description: "Returns available information about 'UnityEditor.EditorApplication
 
 # Editor / Application / Get State
 
-Returns available information about 'UnityEditor.EditorApplication'. Use it to get information about the current state of the Unity Editor application. Such as: playmode, paused state, compilation state, etc.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/editor-application-get-state \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool editor-application-get-state --input '{
   "nothing": "string_value"
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/editor-application-get-state \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "nothing": "string_value"
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -63,12 +45,12 @@ curl -X POST http://localhost:56781/api/tools/editor-application-get-state \
   "type": "object",
   "properties": {
     "result": {
-      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_Editor\u002BEditorStatsData",
-      "description": "Available information about \u0027UnityEditor.EditorApplication\u0027."
+      "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.Tool_Editor+EditorStatsData",
+      "description": "Available information about 'UnityEditor.EditorApplication'."
     }
   },
   "$defs": {
-    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_Editor\u002BEditorStatsData": {
+    "com.IvanMurzak.Unity.MCP.Editor.API.Tool_Editor+EditorStatsData": {
       "type": "object",
       "properties": {
         "IsPlaying": {
@@ -112,7 +94,7 @@ curl -X POST http://localhost:56781/api/tools/editor-application-get-state \
         "IsUpdating",
         "TimeSinceStartup"
       ],
-      "description": "Available information about \u0027UnityEditor.EditorApplication\u0027."
+      "description": "Available information about 'UnityEditor.EditorApplication'."
     }
   },
   "required": [

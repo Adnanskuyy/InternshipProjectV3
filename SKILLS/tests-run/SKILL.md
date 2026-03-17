@@ -5,18 +5,14 @@ description: Execute Unity tests and return detailed results. Supports filtering
 
 # Tests / Run
 
-Execute Unity tests and return detailed results. Supports filtering by test mode, assembly, namespace, class, and method. Recommended to use 'EditMode' for faster iteration during development.
-
 ## How to Call
 
-### HTTP API (Direct Tool Execution)
+### CLI (Direct Tool Execution)
 
-Execute this tool directly via the MCP Plugin HTTP API:
+Execute this tool directly via command line:
 
 ```bash
-curl -X POST http://localhost:56781/api/tools/tests-run \
-  -H "Content-Type: application/json" \
-  -d '{
+unity-mcp-cli run-tool tests-run --input '{
   "testMode": "string_value",
   "testAssembly": "string_value",
   "testNamespace": "string_value",
@@ -30,30 +26,6 @@ curl -X POST http://localhost:56781/api/tools/tests-run \
   "includeLogsStacktrace": false
 }'
 ```
-
-#### With Authorization (if required)
-
-```bash
-curl -X POST http://localhost:56781/api/tools/tests-run \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN" \
-  -d '{
-  "testMode": "string_value",
-  "testAssembly": "string_value",
-  "testNamespace": "string_value",
-  "testClass": "string_value",
-  "testMethod": "string_value",
-  "includePassingTests": false,
-  "includeMessages": false,
-  "includeStacktrace": false,
-  "includeLogs": false,
-  "logType": "string_value",
-  "includeLogsStacktrace": false
-}'
-```
-
-> The token is stored in the file: `UserSettings/AI-Game-Developer-Config.json`
-> Using the format: `"token": "YOUR_TOKEN"`
 
 ## Input
 
@@ -82,40 +54,31 @@ curl -X POST http://localhost:56781/api/tools/tests-run \
       "enum": [
         "EditMode",
         "PlayMode"
-      ],
-      "description": "Test mode to run. Options: \u0027EditMode\u0027, \u0027PlayMode\u0027. Default: \u0027EditMode\u0027"
+      ]
     },
     "testAssembly": {
-      "type": "string",
-      "description": "Specific test assembly name to run (optional). Example: \u0027Assembly-CSharp-Editor-testable\u0027"
+      "type": "string"
     },
     "testNamespace": {
-      "type": "string",
-      "description": "Specific test namespace to run (optional). Example: \u0027MyTestNamespace\u0027"
+      "type": "string"
     },
     "testClass": {
-      "type": "string",
-      "description": "Specific test class name to run (optional). Example: \u0027MyTestClass\u0027"
+      "type": "string"
     },
     "testMethod": {
-      "type": "string",
-      "description": "Specific fully qualified test method to run (optional). Example: \u0027MyTestNamespace.FixtureName.TestName\u0027"
+      "type": "string"
     },
     "includePassingTests": {
-      "type": "boolean",
-      "description": "Include details for all tests, both passing and failing (default: false). If you just need details for failing tests, set to false."
+      "type": "boolean"
     },
     "includeMessages": {
-      "type": "boolean",
-      "description": "Include test result messages in the test results (default: true). If you just need pass/fail status, set to false."
+      "type": "boolean"
     },
     "includeStacktrace": {
-      "type": "boolean",
-      "description": "Include stack traces in the test results (default: false)."
+      "type": "boolean"
     },
     "includeLogs": {
-      "type": "boolean",
-      "description": "Include console logs in the test results (default: false)."
+      "type": "boolean"
     },
     "logType": {
       "type": "string",
@@ -125,12 +88,10 @@ curl -X POST http://localhost:56781/api/tools/tests-run \
         "Warning",
         "Log",
         "Exception"
-      ],
-      "description": "Log type filter for console logs. Options: \u0027Log\u0027, \u0027Warning\u0027, \u0027Assert\u0027, \u0027Error\u0027, \u0027Exception\u0027. (default: \u0027Warning\u0027)"
+      ]
     },
     "includeLogsStacktrace": {
-      "type": "boolean",
-      "description": "Include stack traces for console logs in the test results (default: false). This is huge amount of data, use only if really needed."
+      "type": "boolean"
     }
   }
 }
@@ -185,7 +146,7 @@ curl -X POST http://localhost:56781/api/tools/tests-run \
         "Duration"
       ]
     },
-    "System.Collections.Generic.List\u003Ccom.IvanMurzak.Unity.MCP.Editor.API.TestRunner.TestResultData\u003E": {
+    "System.Collections.Generic.List<com.IvanMurzak.Unity.MCP.Editor.API.TestRunner.TestResultData>": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.TestRunner.TestResultData"
@@ -220,7 +181,7 @@ curl -X POST http://localhost:56781/api/tools/tests-run \
         "Duration"
       ]
     },
-    "System.Collections.Generic.List\u003Ccom.IvanMurzak.Unity.MCP.Editor.API.TestRunner.TestLogEntry\u003E": {
+    "System.Collections.Generic.List<com.IvanMurzak.Unity.MCP.Editor.API.TestRunner.TestLogEntry>": {
       "type": "array",
       "items": {
         "$ref": "#/$defs/com.IvanMurzak.Unity.MCP.Editor.API.TestRunner.TestLogEntry"
@@ -266,11 +227,11 @@ curl -X POST http://localhost:56781/api/tools/tests-run \
           "description": "Summary of the test run including total, passed, failed, and skipped counts."
         },
         "Results": {
-          "$ref": "#/$defs/System.Collections.Generic.List\u003Ccom.IvanMurzak.Unity.MCP.Editor.API.TestRunner.TestResultData\u003E",
+          "$ref": "#/$defs/System.Collections.Generic.List<com.IvanMurzak.Unity.MCP.Editor.API.TestRunner.TestResultData>",
           "description": "List of individual test results with details about each test."
         },
         "Logs": {
-          "$ref": "#/$defs/System.Collections.Generic.List\u003Ccom.IvanMurzak.Unity.MCP.Editor.API.TestRunner.TestLogEntry\u003E",
+          "$ref": "#/$defs/System.Collections.Generic.List<com.IvanMurzak.Unity.MCP.Editor.API.TestRunner.TestLogEntry>",
           "description": "Log entries captured during test execution."
         }
       }
