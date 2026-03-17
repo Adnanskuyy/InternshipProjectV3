@@ -13,7 +13,7 @@
             <ui:Label text="Pilih Level" class="title" />
         </ui:VisualElement>
 
-        <ui:ScrollView class="map-scrollview">
+        <ui:ScrollView mode="VerticalAndHorizontal" class="map-scrollview" horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden">
             <ui:VisualElement name="MapContainer" class="map-container" />
         </ui:ScrollView>
     </ui:VisualElement>
