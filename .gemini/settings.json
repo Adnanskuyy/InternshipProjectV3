@@ -4,9 +4,11 @@
       "args": [
         "port=56781",
         "plugin-timeout=60000",
-        "client-transport=stdio"
+        "client-transport=stdio",
+        "authorization=none"
       ],
-      "command": "C:\\Dev\\03_Projects\\InternshipProjectV3\\Library\\mcp-server\\win-x64\\unity-mcp-server.exe"
+      "command": "C:/Dev/03_Projects/InternshipProjectV3/Library/mcp-server/win-x64/unity-mcp-server.exe",
+      "type": "stdio"
     }
   }
 }

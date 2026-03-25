@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+    <rect width="1920" height="1080" fill="#2c3e50"/>
+    <!-- Path connecting the nodes -->
+    <path d="M 300 800 C 600 800, 600 500, 960 540 C 1300 580, 1300 300, 1600 300" 
+          fill="none" stroke="#34495e" stroke-width="20" stroke-dasharray="30 20" stroke-linecap="round"/>
+    <!-- Decorative elements -->
+    <circle cx="200" cy="200" r="150" fill="#34495e" opacity="0.3"/>
+    <circle cx="1700" cy="800" r="250" fill="#34495e" opacity="0.3"/>
+    <path d="M 100 1000 L 300 900 L 400 1000 Z" fill="#34495e" opacity="0.4"/>
+    <path d="M 1200 150 L 1400 50 L 1500 200 Z" fill="#34495e" opacity="0.4"/>
+</svg>
