@@ -1,4 +1,4 @@
-﻿---
+---
 name: gameobject-component-modify
 description: Modify a specific Component on a GameObject in opened Prefab or in a Scene. Allows direct modification of component fields and properties without wrapping in GameObject structure. Use 'gameobject-component-get' first to inspect the component structure before modifying.
 ---
@@ -7,10 +7,6 @@ description: Modify a specific Component on a GameObject in opened Prefab or in 
 
 ## How to Call
 
-### CLI (Direct Tool Execution)
-
-Execute this tool directly via command line:
-
 ```bash
 unity-mcp-cli run-tool gameobject-component-modify --input '{
   "gameObjectRef": "string_value",
@@ -18,6 +14,24 @@ unity-mcp-cli run-tool gameobject-component-modify --input '{
   "componentDiff": "string_value"
 }'
 ```
+
+> For complex input (multi-line strings, code), save the JSON to a file and use:
+> ```bash
+> unity-mcp-cli run-tool gameobject-component-modify --input-file args.json
+> ```
+>
+> Or pipe via stdin (recommended):
+> ```bash
+> unity-mcp-cli run-tool gameobject-component-modify --input-file - <<'EOF'
+> {"param": "value"}
+> EOF
+> ```
+
+
+### Troubleshooting
+
+If `unity-mcp-cli` is not found, either install it globally (`npm install -g unity-mcp-cli`) or use `npx unity-mcp-cli` instead.
+Read the /unity-initial-setup skill for detailed installation instructions.
 
 ## Input
 

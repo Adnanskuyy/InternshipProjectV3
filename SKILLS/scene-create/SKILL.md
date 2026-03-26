@@ -1,4 +1,4 @@
-﻿---
+---
 name: scene-create
 description: Create new scene in the project assets. Use 'scene-list-opened' tool to list all opened scenes after creation.
 ---
@@ -7,10 +7,6 @@ description: Create new scene in the project assets. Use 'scene-list-opened' too
 
 ## How to Call
 
-### CLI (Direct Tool Execution)
-
-Execute this tool directly via command line:
-
 ```bash
 unity-mcp-cli run-tool scene-create --input '{
   "path": "string_value",
@@ -18,6 +14,24 @@ unity-mcp-cli run-tool scene-create --input '{
   "newSceneMode": "string_value"
 }'
 ```
+
+> For complex input (multi-line strings, code), save the JSON to a file and use:
+> ```bash
+> unity-mcp-cli run-tool scene-create --input-file args.json
+> ```
+>
+> Or pipe via stdin (recommended):
+> ```bash
+> unity-mcp-cli run-tool scene-create --input-file - <<'EOF'
+> {"param": "value"}
+> EOF
+> ```
+
+
+### Troubleshooting
+
+If `unity-mcp-cli` is not found, either install it globally (`npm install -g unity-mcp-cli`) or use `npx unity-mcp-cli` instead.
+Read the /unity-initial-setup skill for detailed installation instructions.
 
 ## Input
 

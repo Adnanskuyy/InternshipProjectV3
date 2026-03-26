@@ -1,4 +1,4 @@
-﻿---
+---
 name: editor-selection-get
 description: Get information about the current Selection in the Unity Editor. Use 'editor-selection-set' tool to set the selection.
 ---
@@ -6,10 +6,6 @@ description: Get information about the current Selection in the Unity Editor. Us
 # Editor / Selection / Get
 
 ## How to Call
-
-### CLI (Direct Tool Execution)
-
-Execute this tool directly via command line:
 
 ```bash
 unity-mcp-cli run-tool editor-selection-get --input '{
@@ -21,6 +17,24 @@ unity-mcp-cli run-tool editor-selection-get --input '{
   "includeActiveTransform": false
 }'
 ```
+
+> For complex input (multi-line strings, code), save the JSON to a file and use:
+> ```bash
+> unity-mcp-cli run-tool editor-selection-get --input-file args.json
+> ```
+>
+> Or pipe via stdin (recommended):
+> ```bash
+> unity-mcp-cli run-tool editor-selection-get --input-file - <<'EOF'
+> {"param": "value"}
+> EOF
+> ```
+
+
+### Troubleshooting
+
+If `unity-mcp-cli` is not found, either install it globally (`npm install -g unity-mcp-cli`) or use `npx unity-mcp-cli` instead.
+Read the /unity-initial-setup skill for detailed installation instructions.
 
 ## Input
 

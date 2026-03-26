@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a62a829d80024e0498a78c7cca4f4205
+guid: 72831330d9366414682f7f4377b91d7a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7175819077659518136
-    second: Claude-ai-icon.svg_0
+      213: -6259371921836951660
+    second: Suspect_Eko_Eyes_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Claude-ai-icon.svg_0
+      name: Suspect_Eko_Eyes_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 960
-        height: 956
+        width: 1408
+        height: 768
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 84b12a7619e5a6c90800000000000000
-      internalID: -7175819077659518136
+      spriteID: 497bad1966e3229a0800000000000000
+      internalID: -6259371921836951660
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Claude-ai-icon.svg_0: -7175819077659518136
+      Suspect_Eko_Eyes_0: -6259371921836951660
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

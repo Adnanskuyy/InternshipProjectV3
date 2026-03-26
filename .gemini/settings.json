@@ -1,14 +1,11 @@
 {
   "mcpServers": {
     "ai-game-developer": {
-      "args": [
-        "port=56781",
-        "plugin-timeout=60000",
-        "client-transport=stdio",
-        "authorization=none"
-      ],
-      "command": "C:/Dev/03_Projects/InternshipProjectV3/Library/mcp-server/win-x64/unity-mcp-server.exe",
-      "type": "stdio"
+      "type": "http",
+      "url": "http://localhost:8080",
+      "headers": {
+        "Authorization": "Bearer zsfTM_S3tB_7DUjq81TwpaxVuTmBfG9OxAKoF3X43z4"
+      }
     }
   }
 }
