@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e307c90ad06a74893993cec3331f1c, type: 3}
+  m_Name: Suspect_Ryan
+  m_EditorClassIdentifier: Assembly-CSharp::InvestigationGame.Data.SuspectData
+  SuspectName: Ryan
+  PolaroidSprite: {fileID: 0}
+  PhysicalCharacteristics:
+    Description: Kantung mata hitam, tubuh kurus, tangan sering tremor, kulit pucat.
+    Image: {fileID: 0}
+  Behavior:
+    Description: Sering begadang, menghindari kontak mata
+    Image: {fileID: 0}
+  Rumors: Sering terlihat begadang sendiri tiap malam dan jarang berinteraksi dengan
+    orang lain atau lingkungan sekitarnya.
+  Role: 0
+  UrineTestResult: 0
+  hasBeenTested: 0
